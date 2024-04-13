@@ -1,3 +1,15 @@
-h1 {
-    color: red;
+#titulo-formulario{
+    margin-top: 60px;
+}
+
+#button-back {
+    position: relative;
+    left: 200px;
+    bottom: 80px;
+    width: 65px;
+    height: 35px;
+}
+
+.navbarbuttons{
+    left: 250px;
 }
