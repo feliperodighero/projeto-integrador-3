@@ -13,3 +13,55 @@
 .navbarbuttons{
     left: 250px;
 }
+
+#login {
+    width: 300px;
+}
+
+#password {
+    width: 300px;
+}
+
+#button-enter{
+    margin-top: 16px;
+    width: 300px;
+    height: 40px;
+}
+
+#image-login{
+    margin-bottom: 30px;
+    width: 100px;
+    margin-right: 245px;
+}
+
+.centralizado{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .centralizado > * {
+    animation: 1s ease-out 0s 1 slideInFromBottom;
+  }
+  
+#titulo-login{
+    margin-bottom: 40px;
+    font-size: 40px;
+    margin-right: 60px;
+}
+
+#copyright{
+    margin-top: 10px;
+    margin-right: 200px;
+}
