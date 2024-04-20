@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash
 Session = sessionmaker(bind=engine)
 
 
-def autenticar_login(login, password):
+def login_authenticate(login, password):
     session = Session()
     user = session.execute(
         text("SELECT * FROM USUARIO WHERE CD_USU = :login"),

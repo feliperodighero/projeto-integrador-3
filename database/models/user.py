@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash
 Session = sessionmaker(bind=engine)
 
 
-def cadastrar_usuario(
+def register_user_bd(
     nome,
     senha,
     cpf,
