@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from database.models.cadastro_usuario import cadastrar_usuario
+from flask import Blueprint, render_template, request, redirect, url_for, session
+from database.models.user import register_user_bd
+from datetime import datetime
 
-cadastro_usuario = Blueprint("cadastro_usuario", __name__)
+register_user_bp = Blueprint("register_user", __name__)
 
 
-@cadastro_usuario.route("/cadastro_usuario", methods=["GET", "POST"])
-def cadastro_usuario_route():
+@register_user_bp.route("/register_user", methods=["GET", "POST"])
+def register_user_route():
+    if "username" not in session:
+        return redirect(url_for("login_user.login"))
     if request.method == "POST":
         nome = request.form["UserName"]
         senha = request.form["UserConfirmPassword"]
@@ -18,8 +21,8 @@ def cadastro_usuario_route():
         numero_casa = request.form["UserNumberHouse"]
         bairro = request.form["UserNeighborhood"]
         complemento = request.form["UserComplement"]
-        data_cadastro = request.form["UserDateRegister"]
-        cadastrar_usuario(
+        data_register = datetime.now()
+        register_user_bd(
             nome,
             senha,
             cpf,
@@ -31,7 +34,7 @@ def cadastro_usuario_route():
             numero_casa,
             bairro,
             complemento,
-            data_cadastro,
+            data_register,
         )
-        return redirect(url_for("cadastro_usuario.cadastro_usuario_route"))
-    return render_template("cadastro_usuario.html")
+        return redirect(url_for("register_user.register_user_route"))
+    return render_template("register_user.html")

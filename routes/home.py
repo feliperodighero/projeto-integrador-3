@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, session, url_for, redirect
 
 
-home_route = Blueprint('home', __name__)
+home_route = Blueprint("home", __name__)
 
-@home_route.route('/', methods=['GET'])
+
+@home_route.route("/", methods=["GET"])
 def home():
-    return render_template('home.html')
+    if "username" not in session:
+        return redirect(url_for("login_user.login"))
+    return render_template("home.html")
