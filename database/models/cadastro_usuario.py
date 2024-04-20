@@ -3,7 +3,6 @@ from database.config import engine
 from sqlalchemy import text
 from werkzeug.security import generate_password_hash
 
-
 Session = sessionmaker(bind=engine)
 
 
@@ -24,6 +23,7 @@ def cadastrar_usuario(
 ):
     session = Session()
     try:
+        senha_hash = generate_password_hash(senha)
         query = text(
             "INSERT INTO USUARIO (NM_USU, SENHA, CRM, CPF, CD_CARGO, STATUS_USU, TELEFONE, BAIRRO, RUA, NUMERO_CASA, COMPLEMENTO, DT_NASC, DT_CAD) VALUES (:NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :DT_CAD) "
         )
@@ -31,7 +31,7 @@ def cadastrar_usuario(
             query,
             {
                 "NM_USU": nome,
-                "SENHA": senha,
+                "SENHA": senha_hash,
                 "CRM": crm,
                 "CPF": cpf,
                 "CD_CARGO": cargo,

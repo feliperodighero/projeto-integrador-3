@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from database.models.cadastro_usuario import cadastrar_usuario
 
 cadastro_usuario = Blueprint("cadastro_usuario", __name__)
@@ -6,6 +6,8 @@ cadastro_usuario = Blueprint("cadastro_usuario", __name__)
 
 @cadastro_usuario.route("/cadastro_usuario", methods=["GET", "POST"])
 def cadastro_usuario_route():
+    if "username" not in session:
+        return redirect(url_for("login_usuario.login"))
     if request.method == "POST":
         nome = request.form["UserName"]
         senha = request.form["UserConfirmPassword"]
