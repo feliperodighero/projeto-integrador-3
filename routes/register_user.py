@@ -1,14 +1,16 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
-from database.models.user import register_user_bd
 from datetime import datetime
+
+from flask import Blueprint, redirect, render_template, request, url_for
+from flask_login import login_required
+
+from database.models.user import register_user_bd
 
 register_user_bp = Blueprint("register_user", __name__)
 
 
 @register_user_bp.route("/register_user", methods=["GET", "POST"])
+@login_required
 def register_user_route():
-    if "username" not in session:
-        return redirect(url_for("login_user.login"))
     if request.method == "POST":
         nome = request.form["UserName"]
         senha = request.form["UserConfirmPassword"]

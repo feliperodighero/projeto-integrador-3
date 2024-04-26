@@ -1,14 +1,16 @@
-from flask import Blueprint, render_template, session, url_for, redirect, request
-from database.models.patient import register_patient_bd
 from datetime import datetime
+
+from flask import Blueprint, redirect, render_template, request, url_for
+from flask_login import login_required
+
+from database.models.patient import register_patient_bd
 
 register_patient_bp = Blueprint("register_patient", __name__)
 
 
 @register_patient_bp.route("/register_patient", methods=["GET", "POST"])
+@login_required
 def register_patient():
-    if "username" not in session:
-        return redirect(url_for("login_user.login"))
     if request.method == "POST":
         name = request.form["ClientName"]
         cpf = request.form["ClientCpf"]

@@ -1,18 +1,15 @@
 from flask import (
     Blueprint,
+    redirect,
     render_template,
     request,
-    redirect,
     url_for,
-    session,
-    current_app,
 )
-from database.models.login import login_authenticate
-from datetime import timedelta
+from flask_login import login_required, login_user, logout_user
 
+from database.models.login import login_authenticate
 
 login_user = Blueprint("login_user", __name__)
-
 
 @login_user.route("/login", methods=["GET", "POST"])
 def login():
@@ -21,11 +18,13 @@ def login():
         password = request.form["password"]
         user = login_authenticate(username, password)
         if user:
-            session["username"] = username
-            session.permanent = True
-            current_app.permanent_session_lifetime = timedelta(minutes=5)
             return redirect(url_for("home.home"))
         else:
             return redirect(url_for("login_user.login"))
-
     return render_template("login_page.html")
+
+@login_user.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login_user.login"))

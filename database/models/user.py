@@ -1,7 +1,8 @@
-from sqlalchemy.orm import sessionmaker
-from database.config import engine
 from sqlalchemy import text
+from sqlalchemy.orm import sessionmaker
 from werkzeug.security import generate_password_hash
+
+from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
