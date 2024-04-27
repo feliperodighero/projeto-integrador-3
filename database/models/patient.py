@@ -22,7 +22,7 @@ def register_patient_bd(
     session = Session()
     try:
         query = text(
-            "INSERT INTO CLIENTE (NM_CLI, CPF, STATUS_CLI, TELEFONE, BAIRRO, RUA, NUMERO, CEP, COMPLEMENTO, DT_CAD) VALUES (:NM_CLI, :CPF, :STATUS_CLI, :TELEFONE, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO, :DT_CAD)"
+            "INSERT INTO CLIENTE (NM_CLI, CPF, STATUS_CLI, TELEFONE, BAIRRO, RUA, NUMERO, CEP, COMPLEMENTO, DT_NASC,DT_CAD) VALUES (:NM_CLI, :CPF, :STATUS_CLI, :TELEFONE, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO, :DT_NASC, :DT_CAD)"
         )
         session.execute(
             query,
@@ -36,6 +36,7 @@ def register_patient_bd(
                 "NUMERO": ClientNumberHouse,
                 "CEP": ClientCep,
                 "COMPLEMENTO": ClientComplement,
+                "DT_NASC": ClientDateBirth,
                 "DT_CAD": ClientDateRegister,
             },
         )
