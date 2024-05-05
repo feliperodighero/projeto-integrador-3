@@ -2,7 +2,6 @@ from datetime import datetime
 
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import login_required
-
 from database.models.user import register_user_bd
 
 register_user_bp = Blueprint("register_user", __name__)

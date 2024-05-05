@@ -5,7 +5,6 @@ from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
-
 def register_patient_bd(
     ClientName,
     ClientCpf,
