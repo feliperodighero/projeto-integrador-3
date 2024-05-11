@@ -8,7 +8,7 @@ function validateClientname() {
 
   if (!regex.test(clientname)) {
     alert(
-      "Nome do cliente inválido. Por favor, insira apenas letras, com ou sem acentos."
+      "Nome do cliente inválido. Por favor, insira apenas letras."
     );
     return false;
   }

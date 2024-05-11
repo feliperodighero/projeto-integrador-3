@@ -8,7 +8,7 @@ function validateUsername() {
 
   if (!regex.test(username)) {
     alert(
-      "Nome do cliente inválido. Por favor, insira apenas letras, com ou sem acentos."
+      "Nome do cliente inválido. Por favor, insira apenas letras."
     );
     return false;
   }
@@ -123,7 +123,7 @@ function validateNeighborhood() {
   var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
 
   if (!regex.test(neighborhood)) {
-    alert("Bairro inválido. Por favor, insira apenas letras, números e espaços.");
+    alert("Bairro inválido. Por favor, insira apenas letras e números.");
     return false;
   }
   return true;
