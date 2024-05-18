@@ -76,3 +76,160 @@
 #button-criar-pacientes, #button-criar-usuarios, #button-editar-pacientes, #button-editar-usuarios{
     margin-top: 25px;
 }
+
+#botaolab{
+    margin-top: 25px;
+}
+
+#complementos-cards{
+    margin-top: 80px;
+}
+
+#botaouser{
+    margin-top: 25px;
+}
+
+#botaopatient{
+    margin-top: 25px;
+}
+
+#dropdown-bar{
+    margin-top: 40px;
+    margin-left: 120px;
+}
+
+#id-container{
+    margin-top: 120px;
+    margin-left: 10px;
+}
+
+#id-container1{
+    margin-top: 1px;
+    margin-left: 10px;
+}
+
+#id-container2{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#large-square {
+    background-color: lightgray;
+    height: 500px;
+    width: 800px;
+    border-radius: 10px;
+    position: relative;
+    top: -50px;
+    left: 20%;
+    transform: translateX(-50%);
+    margin-right: 20px;
+}
+
+#botao-confirmedit-user{
+    margin-top: 25px;
+}
+
+#botao-excluir-user{
+    margin-top: 25px;
+}
+
+#titulo-edit{
+    margin-top: 18px;
+}
+
+#botao-edit-user{
+    margin-top: 25px;
+    margin-left: 10px;
+}
+
+#titulo-square-edit{
+    font-size: 20px;
+}
+
+.square {
+    width: 600px;
+    height: 650px;
+    background-color: lightgray;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+.centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#titulo-homepage {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#image-homepage {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: 500px;
+    margin-top: 10px;
+}
+
+#nome-usuario-homepage{
+    font-size: 20px;
+    margin-top: 120px;
+    font-weight: bold;
+    margin-left: 500px;
+}
+
+#nome-user-homepage{
+    font-size: 25px;
+}
+
+#mensagem-homepage{
+    margin-top: 90px;
+    font-size: 13px;
+}
+
+#suporte-homepage1{
+    font-size: 12px;
+    margin-top: 94px;
+}
+
+#suporte-homepage{
+    font-size: 12px;
+    margin-top: 0px;
+}
+
+@media (max-width: 768px) {
+    #titulo-homepage {
+        font-size: 1.5rem;
+    }
+}
+
+#botao-confirmedit-patient{
+    margin-top: 45px;
+}
+
+#botao-excluir-patient{
+    margin-top: 45px;
+}
+
+#titulo-square-editpatient{
+    margin-bottom: 50px;
+    font-size: 20px;
+}
+
+#botao-confirmedit-laboratory{
+    margin-top: 45px;
+}
+
+#botao-excluir-laboratory{
+    margin-top: 45px;
+}
+
+#titulo-square-editlaboratory{
+    margin-bottom: 50px;
+    font-size: 20px;
+}
