@@ -4,11 +4,11 @@ function goBack() {
 
 function validateUsername() {
   var username = document.getElementById("UserName").value;
-  var regex = /^[a-zA-Z]+$/; // Regex para letras sem acentos
+  var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras
 
   if (!regex.test(username)) {
     alert(
-      "Nome de usuário inválido. Por favor, insira apenas letras sem acentos."
+      "Nome do cliente inválido. Por favor, insira apenas letras."
     );
     return false;
   }
@@ -97,10 +97,10 @@ function validateCargo() {
 
 function validateStreet() {
   var street = document.getElementById("UserStreet").value;
-  var regex = /^[a-zA-Z\s]+$/; // Regex para letras e espaços
+  var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
 
   if (!regex.test(street)) {
-    alert("Rua inválida. Por favor, insira apenas letras.");
+    alert("Rua inválida. Por favor, insira apenas letras e números.");
     return false;
   }
   return true;
@@ -108,21 +108,22 @@ function validateStreet() {
 
 function validateHouseNumber() {
   var houseNumber = document.getElementById("UserNumberHouse").value;
-  var regex = /^\d+$/; // Regex para números
+  var regex = /^[a-zA-Z0-9]+$/; // Regex para letras e números
 
   if (!regex.test(houseNumber)) {
-    alert("Número da casa inválido. Por favor, insira apenas números.");
+    alert("Número inválido. Por favor, insira apenas letras e números, sem caracteres especiais.");
     return false;
   }
   return true;
 }
 
+
 function validateNeighborhood() {
   var neighborhood = document.getElementById("UserNeighborhood").value;
-  var regex = /^[a-zA-Z\s]+$/; // Regex para letras e espaços
+  var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
 
   if (!regex.test(neighborhood)) {
-    alert("Bairro inválido. Por favor, insira apenas letras.");
+    alert("Bairro inválido. Por favor, insira apenas letras e números.");
     return false;
   }
   return true;

@@ -58,7 +58,7 @@
 #titulo-login{
     margin-bottom: 40px;
     font-size: 40px;
-    margin-right: 60px;
+    margin-left: 60px;
 }
 
 #copyright{
@@ -67,7 +67,7 @@
 }
 
 .card-container {
-    margin-top: 190px;
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -76,6 +76,7 @@
 #button-criar-pacientes, #button-criar-usuarios, #button-editar-pacientes, #button-editar-usuarios{
     margin-top: 25px;
 }
+<<<<<<< HEAD
 
 #botaolab{
     margin-top: 25px;
@@ -233,3 +234,5 @@
     margin-bottom: 50px;
     font-size: 20px;
 }
+=======
+>>>>>>> 791f88ba8ef2cb94672afdf44ebe21b6207bc7ab
