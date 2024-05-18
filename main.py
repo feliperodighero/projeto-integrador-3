@@ -28,7 +28,7 @@ def load_user(user_id):
         {"user_id": user_id},
     ).fetchone()
     if user:
-        return User(user_id)
+        return User(user)
     return None
 
 app = Flask(__name__)
