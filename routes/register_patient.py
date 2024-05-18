@@ -13,14 +13,14 @@ register_patient_bp = Blueprint("register_patient", __name__)
 def register_patient():
     if request.method == "POST":
         name = request.form["ClientName"]
+        complement = request.form["ClientComplement"]
+        street = request.form["ClientStreet"]
+        neighborhood = request.form["ClientNeighborhood"]
+        cep = request.form["ClientCep"]
         cpf = request.form["ClientCpf"]
         date_birth = request.form["ClientDateBirth"]
         number_phone = request.form["ClientNumberPhone"]
-        street = request.form["ClientStreet"]
-        cep = request.form["ClientCep"]
         number_house = request.form["ClientNumberHouse"]
-        neighborhood = request.form["ClientNeighborhood"]
-        complement = request.form["ClientComplement"]
         date_register = datetime.now()
         register_patient_bd(
             name,

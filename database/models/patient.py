@@ -40,7 +40,8 @@ def register_patient_bd(
             },
         )
         session.commit()
-    except:
+    except Exception as e:
         session.rollback()
+        print(f"Error: {e}")
     finally:
         session.close()
