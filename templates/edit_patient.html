@@ -27,7 +27,7 @@
                     <li id="navbar-dropdown" class="nav-item dropstart">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                            <li><a class="dropdown-item" href="/logout">Sair</a></li>
                         </ul>
                     </li>
                 </div>
@@ -45,9 +45,9 @@
             Informações
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">ID</a></li>
-            <li><a class="dropdown-item" href="#">CPF/CNPJ</a></li>
-            <li><a class="dropdown-item" href="#">Nome</a></li>
+            <li><a class="dropdown-item" href="#" id="search-id">ID</a></li>
+            <li><a class="dropdown-item" href="#" id="search-cpf">CPF</a></li>
+            <li><a class="dropdown-item" href="#" id="search-name">Nome</a></li>
         </ul>
     </div>
     <div class="container">
@@ -55,74 +55,74 @@
             <div class="col-12 col-md-8">
                 <div id="id-container" class="col-12 col-md-3 mb-3">
                     <label for="InputID" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="SearchID" name="SearchID">
+                    <input type="text" class="form-control" id="SearchID" name="SearchID" disabled>
                 </div>
 
                 <div id="id-container1" class="col-12 col-md-3 mb-3">
-                    <label for="InputCpfCnpj" class="form-label">CPF/CNPJ</label>
-                    <input type="number" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj">
+                    <label for="InputCpfCnpj" class="form-label">CPF</label>
+                    <input type="text" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj" disabled>
                 </div>
 
                 <div id="id-container2" class="col-12 col-md-4 mb-3">
                     <label for="InputNome" class="form-label">Nome</label>
-                    <input type="texts" class="form-control" id="SearchName" name="SearchName">
+                    <input type="text" class="form-control" id="SearchName" name="SearchName" disabled>
                 </div>
                 <div class="col-12 col-md-4 text-center">
-                    <button id="botao-edit-user" type="submit" class="btn btn-success">Pesquisar</button>
+                    <button id="botao-edit-patient" type="submit" class="btn btn-success">Pesquisar</button>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div id="large-square">
-                    <p id="titulo-square-editpatient" class="row justify-content-center">Informações</p>
+                    <p id="titulo-square-edit" class="row justify-content-center">Informações</p>
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-4 mb-3">
                             <div class="mb-1">
                                 <label for="InputNomeClient" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="ClientName" name="ClientName">
+                                <input type="text" class="form-control" id="ClientName" name="ClientName" disabled>
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputComplementoClient" class="form-label">Complemento</label>
-                            <input type="text" class="form-control" id="ClientComplement" name="ClientComplement">
+                            <input type="text" class="form-control" id="ClientComplement" name="ClientComplement" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputRuaClient" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="ClientStreet" name="ClientStreet">
+                            <input type="text" class="form-control" id="ClientStreet" name="ClientStreet" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-4 mb-3">
                             <label for="InputBairro" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="ClientNeighborhood" name="ClientNeighborhood">
+                            <input type="text" class="form-control" id="ClientNeighborhood" name="ClientNeighborhood" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputCepClient" class="form-label">CEP</label>
-                            <input type="number" class="form-control" id="ClientCep" name="ClientCep">
+                            <input type="number" class="form-control" id="ClientCep" name="ClientCep" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputCpfClient" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="ClientCpf" name="ClientCpf">
+                            <input type="text" class="form-control" id="ClientCpf" name="ClientCpf" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-4 mb-3">
                             <label for="InputDataClient" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="ClientDateBirth" name="ClientDateBirth">
+                            <input type="date" class="form-control" id="ClientDateBirth" name="ClientDateBirth" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputTelefoneClient" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="ClientNumberPhone" name="ClientNumberPhone">
+                            <input type="text" class="form-control" id="ClientNumberPhone" name="ClientNumberPhone" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputNumeroCasaClient" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="ClientNumberHouse" name="ClientNumberHouse">
+                            <input type="number" class="form-control" id="ClientNumberHouse" name="ClientNumberHouse" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-6 text-center">
                             <div class="mb-3">
-                                <button id="botao-confirmedit-patient" type="submit" class="btn btn-success">Confirmar Edição</button>
-                                <button id="botao-excluir-patient" type="button" class="btn btn-danger">Excluir</button>
+                                <button id="botao-confirmedit-patient" type="submit" class="btn btn-success" disabled>Confirmar Edição</button>
+                                <button id="botao-excluir-patient" type="button" class="btn btn-danger" disabled>Excluir</button>
                             </div>
                         </div>
                     </div>
@@ -132,6 +132,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/validate_edit_patient.js') }}"></script>
 </body>
 
 </html>

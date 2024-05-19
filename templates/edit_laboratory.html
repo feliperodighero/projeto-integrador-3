@@ -27,7 +27,7 @@
                     <li id="navbar-dropdown" class="nav-item dropstart">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></button>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                            <li><a class="dropdown-item" href="#">Sair</a></li>
+                            <li><a class="dropdown-item" href="/logout">Sair</a></li>
                         </ul>
                     </li>
                 </div>
@@ -45,9 +45,9 @@
             Informações
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">ID</a></li>
-            <li><a class="dropdown-item" href="#">CPF/CNPJ</a></li>
-            <li><a class="dropdown-item" href="#">Nome</a></li>
+            <li><a class="dropdown-item" href="#" id="search-id">ID</a></li>
+            <li><a class="dropdown-item" href="#" id="search-cnpj">CNPJ</a></li>
+            <li><a class="dropdown-item" href="#" id="search-name">Nome</a></li>
         </ul>
     </div>
     <div class="container">
@@ -55,20 +55,20 @@
             <div class="col-12 col-md-8">
                 <div id="id-container" class="col-12 col-md-3 mb-3">
                     <label for="InputID" class="form-label">ID</label>
-                    <input type="number" class="form-control" id="SearchID" name="SearchID">
+                    <input type="text" class="form-control" id="SearchID" name="SearchID" disabled>
                 </div>
 
                 <div id="id-container1" class="col-12 col-md-3 mb-3">
-                    <label for="InputCpfCnpj" class="form-label">CPF/CNPJ</label>
-                    <input type="number" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj">
+                    <label for="InputCpfCnpj" class="form-label">CNPJ</label>
+                    <input type="text" class="form-control" id="SearchCnpj" name="SearchCnpj" disabled>
                 </div>
 
                 <div id="id-container2" class="col-12 col-md-4 mb-3">
                     <label for="InputNome" class="form-label">Nome</label>
-                    <input type="texts" class="form-control" id="SearchName" name="SearchName">
+                    <input type="text" class="form-control" id="SearchName" name="SearchName" disabled>
                 </div>
                 <div class="col-12 col-md-4 text-center">
-                    <button id="botao-edit-user" type="submit" class="btn btn-success">Pesquisar</button>
+                    <button id="botao-edit-laboratory" type="submit" class="btn btn-success">Pesquisar</button>
                 </div>
             </div>
             <div class="col-12 col-md-4">
@@ -78,47 +78,47 @@
                         <div class="col-12 col-md-4 mb-3">
                             <div class="mb-1">
                                 <label for="InputNome" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="LaboratoryName" name="LaboratoryName">
+                                <input type="text" class="form-control" id="LaboratoryName" name="LaboratoryName" disabled>
                             </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputRua" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="LaboratoryStreet" name="LaboratoryStreet">
+                            <input type="text" class="form-control" id="LaboratoryStreet" name="LaboratoryStreet" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputNumeroEndereco" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="LaboratoryNumberAdress" name="LaboratoryNumberAdress">
+                            <input type="number" class="form-control" id="LaboratoryNumberAdress" name="LaboratoryNumberAdress" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-4 mb-3">
                             <label for="InputCnpj" class="form-label">CNPJ</label>
-                            <input type="text" class="form-control" id="LaboratoryCnpj" name="LaboratoryCnpj">
+                            <input type="text" class="form-control" id="LaboratoryCnpj" name="LaboratoryCnpj" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputCep" class="form-label">CEP</label>
-                            <input type="number" class="form-control" id="LaboratoryCep" name="LaboratoryCep">
+                            <input type="number" class="form-control" id="LaboratoryCep" name="LaboratoryCep" disabled>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="InputTelefone" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="LaboratoryNumberPhone" name="LaboratoryNumberPhone">  
+                            <input type="text" class="form-control" id="LaboratoryNumberPhone" name="LaboratoryNumberPhone" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-6 mb-3">
                             <label for="InputComplemento" class="form-label">Complemento</label>
-                            <input type="text" class="form-control" id="LaboratoryComplement" name="LaboratoryComplement">
+                            <input type="text" class="form-control" id="LaboratoryComplement" name="LaboratoryComplement" disabled>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="InputBairro" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="LaboratoryNeighborhood" name="LaboratoryNeighborhood">
+                            <input type="text" class="form-control" id="LaboratoryNeighborhood" name="LaboratoryNeighborhood" disabled>
                         </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-6 text-center">
                             <div class="mb-3">
-                                <button id="botao-confirmedit-laboratory" type="submit" class="btn btn-success">Confirmar Edição</button>
-                                <button id="botao-excluir-laboratory" type="button" class="btn btn-danger">Excluir</button>
+                                <button id="botao-confirmedit-laboratory" type="submit" class="btn btn-success" disabled>Confirmar Edição</button>
+                                <button id="botao-excluir-laboratory" type="button" class="btn btn-danger" disabled>Excluir</button>
                             </div>
                         </div>
                     </div>
@@ -128,6 +128,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/validate_edit_laboratory.js') }}"></script>
 </body>
 
 </html>
