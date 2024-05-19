@@ -34,15 +34,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchName = document.getElementById('SearchName');
     const botaoPesquisar = document.getElementById('botao-edit-patient');
 
+    const searchFields = [searchID, searchCpfCnpj, searchName];
+    const otherFields = Array.from(document.querySelectorAll('.form-control')).filter(field => !searchFields.includes(field));
+
     function disableAllFields() {
-        searchID.disabled = true;
-        searchCpfCnpj.disabled = true;
-        searchName.disabled = true;
+        searchFields.forEach(field => {
+            field.disabled = true;
+            field.value = ''; // Limpa o valor do campo
+        });
+        otherFields.forEach(field => field.disabled = true);
     }
 
-    function enableAllFields() {
-        const allFields = document.querySelectorAll('.form-control');
-        allFields.forEach(field => field.disabled = false);
+    function enableOtherFields() {
+        otherFields.forEach(field => field.disabled = false);
     }
 
     document.getElementById('search-id').addEventListener('click', function () {
@@ -61,8 +65,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     botaoPesquisar.addEventListener('click', function () {
-        enableAllFields();
+        if (searchID.value || searchCpfCnpj.value || searchName.value) {
+            enableOtherFields();
+        } else {
+            alert('Por favor, preencha um dos campos de busca.');
+        }
     });
 
     disableAllFields();
 });
+

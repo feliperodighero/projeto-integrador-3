@@ -49,10 +49,13 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('botao-excluir-user')
     ];
 
+    const searchFields = [searchID, searchCpfCnpj, searchName];
+
     function disableAllFields() {
-        searchID.disabled = true;
-        searchCpfCnpj.disabled = true;
-        searchName.disabled = true;
+        searchFields.forEach(field => {
+            field.disabled = true;
+            field.value = ''; // Limpa o valor do campo
+        });
         formFields.forEach(field => field.disabled = true);
     }
 
