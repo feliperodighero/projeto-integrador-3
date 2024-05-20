@@ -32,35 +32,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchCpfCnpj = document.getElementById('SearchCpfCnpj');
     const searchName = document.getElementById('SearchName');
     const botaoEditUser = document.getElementById('botao-edit-user');
-    const formFields = [
-        document.getElementById('UserName'),
-        document.getElementById('UserPassword'),
-        document.getElementById('UserConfirmPassword'),
-        document.getElementById('UserCpf'),
-        document.getElementById('UserNumberPhone'),
-        document.getElementById('UserComplement'),
-        document.getElementById('UserDateBirth'),
-        document.getElementById('UserCrm'),
-        document.getElementById('UserCodeCarg'),
-        document.getElementById('UserStreet'),
-        document.getElementById('UserNumberHouse'),
-        document.getElementById('UserNeighborhood'),
-        document.getElementById('botao-confirmedit-user'),
-        document.getElementById('botao-excluir-user')
-    ];
-
-    const searchFields = [searchID, searchCpfCnpj, searchName];
 
     function disableAllFields() {
-        searchFields.forEach(field => {
+        [searchID, searchCpfCnpj, searchName].forEach(field => {
             field.disabled = true;
-            field.value = ''; // Limpa o valor do campo
+            field.value = '';
         });
-        formFields.forEach(field => field.disabled = true);
     }
 
     function enableFormFields() {
-        formFields.forEach(field => field.disabled = false);
+        document.querySelectorAll('#editForm input').forEach(input => input.disabled = false);
     }
 
     document.getElementById('search-id').addEventListener('click', function () {
@@ -78,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function () {
         searchName.disabled = false;
     });
 
-    botaoEditUser.addEventListener('click', function () {
-        if (searchID.value || searchCpfCnpj.value || searchName.value) {
-            enableFormFields();
-        } else {
+    botaoEditUser.addEventListener('click', function (event) {
+        const isValid = searchID.value || searchCpfCnpj.value || searchName.value;
+        if (!isValid) {
+            event.preventDefault();
             alert('Por favor, preencha um dos campos de busca.');
         }
     });

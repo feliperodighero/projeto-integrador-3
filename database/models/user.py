@@ -56,9 +56,26 @@ def register_user_bd(
 def get_user_by_id(user_id):
     session = Session()
     try:
-        query = text("SELECT * FROM USUARIO WHERE ID = :ID")
+        query = text("SELECT * FROM USUARIO WHERE CD_USU = :ID")
         result = session.execute(query, {"ID": user_id}).fetchone()
-        return result
+        if result:
+            return {
+                "id": result[0],
+                "name": result[1],
+                "password": result[2],
+                "crm": result[3],
+                "cpf": result[4],
+                "code_carg": result[5],
+                "status_usu": result[6],
+                "phone": result[7],
+                "neighborhood": result[8],
+                "street": result[9],
+                "house_number": result[10],
+                "complement": result[11],
+                "birth_date": result[12],
+                "cadastro_date": result[13],
+            }
+        return None
     finally:
         session.close()
 
@@ -67,29 +84,37 @@ def get_user_by_cpf(cpf):
     try:
         query = text("SELECT * FROM USUARIO WHERE CPF = :CPF")
         result = session.execute(query, {"CPF": cpf}).fetchone()
-        return result
-    finally:
-        session.close()
-
-def get_user_by_name(name):
-    session = Session()
-    try:
-        query = text("SELECT * FROM USUARIO WHERE NM_USU = :NM_USU")
-        result = session.execute(query, {"NM_USU": name}).fetchall()
-        return result
+        if result:
+            return {
+                "id": result[0],
+                "name": result[1],
+                "password": result[2],
+                "crm": result[3],
+                "cpf": result[4],
+                "code_carg": result[5],
+                "status_usu": result[6],
+                "phone": result[7],
+                "neighborhood": result[8],
+                "street": result[9],
+                "house_number": result[10],
+                "complement": result[11],
+                "birth_date": result[12],
+                "cadastro_date": result[13],
+            }
+        return None
     finally:
         session.close()
 
 def update_user_bd(
-    user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento
+    user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento, status_usu=True
 ):
     session = Session()
     try:
         senha_hash = generate_password_hash(senha)
         query = text(
-            "UPDATE USUARIO SET NM_USU = :NM_USU, SENHA = :SENHA, CPF = :CPF, TELEFONE = :TELEFONE, "
-            "DT_NASC = :DT_NASC, CRM = :CRM, CD_CARGO = :CD_CARGO, RUA = :RUA, NUMERO_CASA = :NUMERO_CASA, "
-            "BAIRRO = :BAIRRO, COMPLEMENTO = :COMPLEMENTO WHERE ID = :ID"
+            "UPDATE USUARIO SET NM_USU = :NM_USU, SENHA = :SENHA, CRM = :CRM, CPF = :CPF, "
+            "CD_CARGO = :CD_CARGO, STATUS_USU = :STATUS_USU, TELEFONE = :TELEFONE, BAIRRO = :BAIRRO, RUA = :RUA, "
+            "NUMERO_CASA = :NUMERO_CASA, COMPLEMENTO = :COMPLEMENTO, DT_NASC = :DT_NASC WHERE CD_USU = :ID"
         )
         session.execute(
             query,
@@ -105,6 +130,7 @@ def update_user_bd(
                 "NUMERO_CASA": numero_casa,
                 "BAIRRO": bairro,
                 "COMPLEMENTO": complemento,
+                "STATUS_USU": status_usu,
                 "ID": user_id
             },
         )
@@ -115,10 +141,11 @@ def update_user_bd(
     finally:
         session.close()
 
+
 def delete_user_bd(user_id):
     session = Session()
     try:
-        query = text("DELETE FROM USUARIO WHERE ID = :ID")
+        query = text("DELETE FROM USUARIO WHERE CD_USU = :ID")
         session.execute(query, {"ID": user_id})
         session.commit()
     except:

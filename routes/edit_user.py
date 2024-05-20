@@ -1,59 +1,78 @@
-from flask import Blueprint, render_template, request, redirect, url_for
-from flask_login import login_required
-from database.models.user import (
-    get_user_by_id,
-    get_user_by_cpf,
-    get_user_by_name,
-    update_user_bd,
-    delete_user_bd
-)
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from database.models.user import get_user_by_id, get_user_by_cpf, update_user_bd, delete_user_bd
 
-edit_user_bp = Blueprint("edit_user", __name__)
+edit_user_bp = Blueprint("edit_user", __name__, template_folder="templates")
 
 @edit_user_bp.route("/edit_user", methods=["GET", "POST"])
-@login_required
 def edit_user_route():
     if request.method == "POST":
         if 'search' in request.form:
             search_id = request.form.get("SearchID")
             search_cpf = request.form.get("SearchCpfCnpj")
-            search_name = request.form.get("SearchName")
+
 
             user = None
             if search_id:
                 user = get_user_by_id(search_id)
             elif search_cpf:
                 user = get_user_by_cpf(search_cpf)
-            elif search_name:
-                user = get_user_by_name(search_name)
+
 
             if user:
                 return render_template("edit_user.html", user=user)
             else:
-                return "User not found", 404
+                flash("Usuário não encontrado", "danger")
+                return render_template("edit_user.html")
 
         elif 'update' in request.form:
-            user_id = request.form["UserId"]
-            nome = request.form["UserName"]
-            senha = request.form["UserConfirmPassword"]
-            cpf = request.form["UserCpf"]
-            telefone = request.form["UserNumberPhone"]
-            data_nascimento = request.form["UserDateBirth"]
-            crm = request.form["UserCrm"]
-            cargo = request.form["UserCodeCarg"]
-            rua = request.form["UserStreet"]
-            numero_casa = request.form["UserNumberHouse"]
-            bairro = request.form["UserNeighborhood"]
-            complemento = request.form["UserComplement"]
+            user_id = request.form.get("UserId")
+            user_data = {
+                "name": request.form.get("UserName"),
+                "password": request.form.get("UserPassword"),
+                "cpf": request.form.get("UserCpf"),
+                "phone": request.form.get("UserNumberPhone"),
+                "complement": request.form.get("UserComplement"),
+                "birth_date": request.form.get("UserDateBirth"),
+                "crm": request.form.get("UserCrm"),
+                "code_carg": request.form.get("UserCodeCarg"),
+                "street": request.form.get("UserStreet"),
+                "house_number": request.form.get("UserNumberHouse"),
+                "neighborhood": request.form.get("UserNeighborhood")
+            }
+
+            # Verificar se todas as chaves estão presentes
+            missing_keys = [key for key in user_data if not user_data[key]]
+            if missing_keys:
+                flash(f"Faltando dados nos campos: {', '.join(missing_keys)}", "danger")
+                return render_template("edit_user.html", user=user_data)
+
+            # Verificar se as senhas correspondem
+            if user_data["password"] != request.form.get("UserConfirmPassword"):
+                flash("As senhas não correspondem", "danger")
+                return render_template("edit_user.html", user=user_data)
 
             update_user_bd(
-                user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento
+                user_id,
+                user_data["name"],
+                user_data["password"],
+                user_data["cpf"],
+                user_data["phone"],
+                user_data["birth_date"],
+                user_data["crm"],
+                user_data["code_carg"],
+                user_data["street"],
+                user_data["house_number"],
+                user_data["neighborhood"],
+                user_data["complement"],
+                status_usu=True
             )
+            flash("Usuário atualizado com sucesso", "success")
             return redirect(url_for("edit_user.edit_user_route"))
 
         elif 'delete' in request.form:
             user_id = request.form["UserId"]
             delete_user_bd(user_id)
+            flash("Usuário excluído com sucesso", "success")
             return redirect(url_for("edit_user.edit_user_route"))
 
     return render_template("edit_user.html")
