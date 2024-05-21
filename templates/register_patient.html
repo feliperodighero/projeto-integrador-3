@@ -12,6 +12,7 @@
       $(document).ready(function () {
         $("#ClientNumberPhone").mask("(00)00000-0000");
         $('#ClientCpf').mask('000.000.000-00');
+        $('#ClientCep').mask('00000-00');
       });
     </script>
 </head>
@@ -45,11 +46,14 @@
         <h1 id="titulo-formulario">Cadastre seu Paciente</h1>
     </div>
 
-    <form id="complementos-cards" class="container" action="/register_patient" method="post">
+    <form id="complementos-cards" class="container" action="/register_patient" method="post" novalidate>
         <div class="row justify-content-center">
             <div class="col-md-6 mb-3">
                 <label for="InputNomeClient" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="ClientName" name="ClientName">
+                <div id="ClientError" style="display: none; color: red;">
+                    Por favor, insira o nome do cliente.
+                </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="InputComplementoClient" class="form-label">Complemento</label>
@@ -60,20 +64,32 @@
             <div class="col-md-6 mb-3">
                 <label for="InputRuaClient" class="form-label">Rua</label>
                 <input type="text" class="form-control" id="ClientStreet" name="ClientStreet">
+                <div id="ClientRuaError" style="display: none; color: red;">
+                    Por favor, insira a rua do cliente.
+                </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="InputBairro" class="form-label">Bairro</label>
                 <input type="text" class="form-control" id="ClientNeighborhood" name="ClientNeighborhood">
+                <div id="ClientBairroError" style="display: none; color: red;">
+                    Por favor, insira o bairro do cliente.
+                </div>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6 mb-3">
                 <label for="InputCepClient" class="form-label">CEP</label>
-                <input type="number" class="form-control" id="ClientCep" name="ClientCep">
+                <input type="text" class="form-control" id="ClientCep" name="ClientCep">
+                <div id="ClientCEPError" style="display: none; color: red;">
+                    Por favor, insira o CEP do cliente.
+                </div>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="InputCpfClient" class="form-label">CPF</label>
                 <input type="text" class="form-control" id="ClientCpf" name="ClientCpf">
+                <div id="ClientCPFError" style="display: none; color: red;">
+                    Por favor, insira o CPF do cliente.
+                </div>
             </div>
         </div>
 
@@ -81,14 +97,23 @@
             <div class="col-md-4 mb-3">
                 <label for="InputDataClient" class="form-label">Data de Nascimento</label>
                 <input type="date" class="form-control" id="ClientDateBirth" name="ClientDateBirth">
+                <div id="ClientDataNascError" style="display: none; color: red;">
+                    Por favor, a data de nascimento do cliente.
+                </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="InputTelefoneClient" class="form-label">Telefone</label>
                 <input type="text" class="form-control" id="ClientNumberPhone" name="ClientNumberPhone">
+                <div id="ClientTelefoneError" style="display: none; color: red;">
+                    Por favor, o número de telefone do cliente.
+                </div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="InputNumeroCasaClient" class="form-label">Número</label>
                 <input type="number" class="form-control" id="ClientNumberHouse" name="ClientNumberHouse">
+                <div id="ClientNumeroError" style="display: none; color: red;">
+                    Por favor, o número do endereço do cliente.
+                </div>
             </div>
         </div>
         <div id= "botaopatient" class="row justify-content-center">

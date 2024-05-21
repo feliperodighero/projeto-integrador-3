@@ -1,94 +1,131 @@
+(() => {
+  'use strict'
+
+  const forms = document.querySelectorAll('.needs-validation')
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
 function goBack() {
-    window.location.href = '/select_user_patient';
+  window.location.href = '/select_user_patient';
 }
 
 function validateClientname() {
   var clientname = document.getElementById("ClientName").value;
   var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras com e sem acentos
+  var clientError = document.getElementById("ClientError");
 
   if (!regex.test(clientname)) {
-    alert(
-      "Nome do cliente inválido. Por favor, insira apenas letras."
-    );
+    clientError.style.display = "block";
     return false;
+  } else {
+    clientError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
+function validateCPF() {
+  var cpf = document.getElementById("ClientCpf").value;
+  var regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/; // Regex para o formato XXX.XXX.XXX-XX
+  var clientcpfError = document.getElementById("ClientCPFError");
 
-  function validateCPF() {
-    var cpf = document.getElementById("ClientCpf").value;
-    var regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/; // Regex para o formato XXX.XXX.XXX-XX
-
-    if (!regex.test(cpf)) {
-      alert("CPF inválido. Por favor, insira no formato XXX.XXX.XXX-XX.");
-      return false;
-    }
+  if (!regex.test(cpf)) {
+    clientcpfError.style.display = "block";
+    return false;
+  } else {
+    clientcpfError.style.display - "none";
     return true;
   }
+}
 
-  function validatePhoneNumber() {
-    var phoneNumber = document.getElementById("ClientNumberPhone").value;
-    var regex = /^\(\d{2}\)\d{5}-\d{4}$/; // Regex para o formato (XX)XXXXX-XXXX
+function validateCEP() {
+  var cep = document.getElementById("ClientCep").value;
+  var regex = /^[0-9]{5}-[0-9]{3}$/;
+  var clientcepError = document.getElementById("ClientCEPError");
 
-    if (!regex.test(phoneNumber)) {
-      alert(
-        "Número de telefone inválido. Por favor, insira no formato (XX)XXXXX-XXXX."
-      );
-      return false;
-    }
+  if (cep === "" || !regex.test(cep)) {
+    clientcepError.style.display = "block";
+    return false;
+  } else {
+    clientcepError.style.display = "none";
     return true;
   }
+}
 
-  function validateBirthDate() {
-    var birthDate = new Date(document.getElementById("ClientDateBirth").value);
-    var today = new Date();
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
+function validatePhoneNumber() {
+  var phoneNumber = document.getElementById("ClientNumberPhone").value;
+  var regex = /^\(\d{2}\)\d{5}-\d{4}$/; // Regex para o formato (XX)XXXXX-XXXX
+  var clienttelefoneError = document.getElementById("ClientTelefoneError");
 
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    if (birthDate > today) {
-      alert(
-        "A data de nascimento está inválida. Por favor, insira uma data de nascimento válida."
-      );
-      return false;
-    }
-
+  if (!regex.test(phoneNumber)) {
+    clienttelefoneError.style.display = "block"
+    return false;
+  } else {
+    clienttelefoneError.style.display = "none"
     return true;
   }
+}
 
-  function validateStreet() {
-    var street = document.getElementById("ClientStreet").value;
-    var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
+function validateBirthDate() {
+  var birthDateInput = document.getElementById("ClientDataNascError");
+  var birthDateValue = birthDateInput.value;
+  var datanascError = document.getElementById("ClientDataNascError");
 
-    if (!regex.test(street)) {
-      alert("Rua inválida. Por favor, insira apenas letras e números.");
-      return false;
-    }
+  if (!birthDateValue) {
+    datanascError.style.display = "block";
+    return false;
+  } else {
+    datanascError.style.display = "none";
     return true;
   }
+}
 
-  function validateHouseNumber() {
-    var houseNumber = document.getElementById("ClientNumberHouse").value;
-    var regex = /^[a-zA-Z0-9]+$/; // Regex para números
+function validateStreet() {
+  var street = document.getElementById("ClientStreet").value;
+  var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
+  var clientruaError = document.getElementById("ClientRuaError");
 
-    if (!regex.test(houseNumber)) {
-      alert("Número inválido. Por favor, insira apenas letras e números, sem caracteres especiais.");
-      return false;
-    }
+  if (!regex.test(street)) {
+    clientruaError.style.display = "block";
+    return false
+  } else {
+    clientruaError.style.display = "none";
+    return true
+  }
+}
+
+function validateHouseNumber() {
+  var houseNumber = document.getElementById("ClientNumberHouse").value;
+  var regex = /^[a-zA-Z0-9]+$/; // Regex para números
+  var clientnumeroError = document.getElementById("ClientNumeroError")
+
+  if (!regex.test(houseNumber)) {
+    clientnumeroError.style.display = "block";
+    return false;
+  } else {
+    clientnumeroError.style.document = "none";
     return true;
   }
+}
 
-  function validateNeighborhood() {
-    var neighborhood = document.getElementById("ClientNeighborhood").value;
-    var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras, números e espaços
-
-    if (!regex.test(neighborhood)) {
-      alert("Bairro inválido. Por favor, insira apenas letras, números.");
-      return false;
-    }
+function validateNeighborhood() {
+  var neighborhood = document.getElementById("ClientNeighborhood").value;
+  var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras, números e espaços
+  var clientbairroError = document.getElementById = "ClientBairroError";
+  if (!regex.test(neighborhood)) {
+    clientbairroError.style.display = "block";
+    return false;
+  } else {
+    clientbairroError.style.display = "none";
     return true;
   }
+}

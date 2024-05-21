@@ -1,3 +1,20 @@
+(() => {
+  'use strict'
+
+  const forms = document.querySelectorAll('.needs-validation')
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
 function goBack() {
   window.location.href = '/select_user_patient';
 }
@@ -5,14 +22,15 @@ function goBack() {
 function validateUsername() {
   var username = document.getElementById("UserName").value;
   var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras
+  var usernameError = document.getElementById("usernameError");
 
   if (!regex.test(username)) {
-    alert(
-      "Nome do cliente inválido. Por favor, insira apenas letras."
-    );
+    usernameError.style.display = "block";
     return false;
+  } else {
+    usernameError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validatePassword() {
@@ -29,29 +47,42 @@ function validatePassword() {
 function validateCPF() {
   var cpf = document.getElementById("UserCpf").value;
   var regex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/; // Regex para o formato XXX.XXX.XXX-XX
+  var cpfError = document.getElementById("CPFError");
 
   if (!regex.test(cpf)) {
-    alert("CPF inválido. Por favor, insira no formato XXX.XXX.XXX-XX.");
+    cpfError.style.display = "block";
     return false;
+  } else {
+    cpfError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validatePhoneNumber() {
   var phoneNumber = document.getElementById("UserNumberPhone").value;
   var regex = /^\(\d{2}\)\d{5}-\d{4}$/; // Regex para o formato (XX)XXXXX-XXXX
+  var phonenumberError = document.getElementById("NumberPhoneError");
 
   if (!regex.test(phoneNumber)) {
-    alert(
-      "Número de telefone inválido. Por favor, insira no formato (XX)XXXXX-XXXX."
-    );
+    phonenumberError.style.display = "block";
     return false;
+  } else {
+    phonenumberError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validateBirthDate() {
-  var birthDate = new Date(document.getElementById("UserDateBirth").value);
+  var birthDateInput = document.getElementById("UserDateBirth");
+  var birthDateValue = birthDateInput.value;
+  var datanascError = document.getElementById("DataNascError");
+
+  if (!birthDateValue) {
+    datanascError.style.display = "block";
+    return false;
+  }
+
+  var birthDate = new Date(birthDateValue);
   var today = new Date();
   var age = today.getFullYear() - birthDate.getFullYear();
   var m = today.getMonth() - birthDate.getMonth();
@@ -61,70 +92,81 @@ function validateBirthDate() {
   }
 
   if (birthDate > today) {
-    alert(
-      "A data de nascimento está inválida. Por favor, insira uma data de nascimento válida."
-    );
+    datanascError.style.display = "block";
     return false;
   } else if (age < 16) {
     alert("O usuário deve ter pelo menos 16 anos.");
     return false;
+  } else {
+    datanascError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validateCRM() {
   var crm = document.getElementById("UserCrm").value;
   var regex = /^\d{6}$/; // Regex para exatamente 6 números
+  var crmError = document.getElementById("CRMError");
 
   if (!regex.test(crm)) {
-    alert("CRM inválido. Por favor, insira exatamente 6 números.");
-    return false;
+    crmError.style.display = "block";
+  } else {
+    crmError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validateCargo() {
-  var cargo = document.getElementById("UserCodeCarg").value;
+  var cargo = document.getElementById("inlineFormCustomSelect").value;
+  var cargoError = document.getElementById("CargoError");
 
-  if (cargo != 1 && cargo != 2) {
-    alert(
-      "Cargo inválido. Por favor, insira 1 para dentista ou 2 para secretário."
-    );
+  if (cargo != "1" && cargo != "2") {
+    cargoError.style.display = "block";
     return false;
+  } else {
+    cargoError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validateStreet() {
   var street = document.getElementById("UserStreet").value;
   var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
+  var streetError = document.getElementById("StreetError");
 
-  if (!regex.test(street)) {
-    alert("Rua inválida. Por favor, insira apenas letras e números.");
+  if (street === '' || !regex.test(street)) {
+    streetError.style.display = "block";
     return false;
+  } else {
+    streetError.style.display = "none";
+    return true;
   }
-  return true;
 }
 
 function validateHouseNumber() {
   var houseNumber = document.getElementById("UserNumberHouse").value;
   var regex = /^[a-zA-Z0-9]+$/; // Regex para letras e números
+  var numberError = document.getElementById("NumberError");
 
   if (!regex.test(houseNumber)) {
-    alert("Número inválido. Por favor, insira apenas letras e números, sem caracteres especiais.");
+    numberError.style.display = "block";
     return false;
+  } else {
+    numberError, style.display = "none";
+    return true;
   }
-  return true;
 }
-
 
 function validateNeighborhood() {
   var neighborhood = document.getElementById("UserNeighborhood").value;
-  var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
+  var regex = /^[a-zA-Z0-9\s\u00C0-\u017F]+$/; // Regex para letras (incluindo acentuadas), números e espaços
+  var neighborhoodError = document.getElementById("NeighborhoodError")
 
-  if (!regex.test(neighborhood)) {
-    alert("Bairro inválido. Por favor, insira apenas letras e números.");
+  if (!neighborhood || !regex.test(neighborhood)) {
+    neighborhoodError.style.display = "block";
     return false;
+  } else {
+    neighborhoodError.style.display = "none";
+    return true;
   }
-  return true;
 }
