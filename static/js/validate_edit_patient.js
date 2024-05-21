@@ -32,21 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchID = document.getElementById('SearchID');
     const searchCpfCnpj = document.getElementById('SearchCpfCnpj');
     const searchName = document.getElementById('SearchName');
-    const botaoPesquisar = document.getElementById('botao-edit-patient');
-
-    const searchFields = [searchID, searchCpfCnpj, searchName];
-    const otherFields = Array.from(document.querySelectorAll('.form-control')).filter(field => !searchFields.includes(field));
+    const botaoEditUser = document.getElementById('botao-edit-user');
 
     function disableAllFields() {
-        searchFields.forEach(field => {
+        [searchID, searchCpfCnpj, searchName].forEach(field => {
             field.disabled = true;
-            field.value = ''; // Limpa o valor do campo
+            field.value = '';
         });
-        otherFields.forEach(field => field.disabled = true);
     }
 
-    function enableOtherFields() {
-        otherFields.forEach(field => field.disabled = false);
+    function enableFormFields() {
+        document.querySelectorAll('#editForm input').forEach(input => input.disabled = false);
     }
 
     document.getElementById('search-id').addEventListener('click', function () {
@@ -54,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         searchID.disabled = false;
     });
 
-    document.getElementById('search-cpf').addEventListener('click', function () {
+    document.getElementById('search-cpf-cnpj').addEventListener('click', function () {
         disableAllFields();
         searchCpfCnpj.disabled = false;
     });
@@ -64,14 +60,13 @@ document.addEventListener('DOMContentLoaded', function () {
         searchName.disabled = false;
     });
 
-    botaoPesquisar.addEventListener('click', function () {
-        if (searchID.value || searchCpfCnpj.value || searchName.value) {
-            enableOtherFields();
-        } else {
+    botaoEditUser.addEventListener('click', function (event) {
+        const isValid = searchID.value || searchCpfCnpj.value || searchName.value;
+        if (!isValid) {
+            event.preventDefault();
             alert('Por favor, preencha um dos campos de busca.');
         }
     });
 
     disableAllFields();
 });
-

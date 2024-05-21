@@ -53,80 +53,81 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8">
-                <div id="id-container" class="col-12 col-md-3 mb-3">
-                    <label for="InputID" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="SearchID" name="SearchID" disabled>
-                </div>
+                <form id="searchForm" method="POST" action="/edit_patient">
+                    <div id="id-container" class="col-12 col-md-3 mb-3">
+                        <label for="InputID" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="SearchID" name="SearchID" value="{{ patient.id if patient else '' }}">
+                    </div>
 
-                <div id="id-container1" class="col-12 col-md-3 mb-3">
-                    <label for="InputCpfCnpj" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj" disabled>
-                </div>
+                    <div id="id-container1" class="col-12 col-md-3 mb-3">
+                        <label for="InputCpfCnpj" class="form-label">CPF</label>
+                        <input type="text" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj" value="{{ patient.cpf if patient else '' }}">
+                    </div>
 
-                <div id="id-container2" class="col-12 col-md-4 mb-3">
-                    <label for="InputNome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="SearchName" name="SearchName" disabled>
-                </div>
-                <div class="col-12 col-md-4 text-center">
-                    <button id="botao-edit-patient" type="submit" class="btn btn-success">Pesquisar</button>
-                </div>
+                    <div id="id-container2" class="col-12 col-md-4 mb-3">
+                        <label for="InputNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="SearchName" name="SearchName" value="{{ patient.name if patient else '' }}">
+                    </div>
+                    <div class="col-12 col-md-4 text-center">
+                        <button id="botao-edit-patient" name="search" type="submit" class="btn btn-success">Pesquisar</button>
+                    </div>
+                </form>
             </div>
             <div class="col-12 col-md-4">
-                <div id="large-square">
-                    <p id="titulo-square-edit" class="row justify-content-center">Informações</p>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-4 mb-3">
-                            <div class="mb-1">
-                                <label for="InputNomeClient" class="form-label">Nome</label>
-                                <input type="text" class="form-control" id="ClientName" name="ClientName" disabled>
+                <form id="editForm" method="POST" action="/edit_patient">
+                    <input type="hidden" id="ClientId" name="ClientId" value="{{ client.id if client else '' }}">
+                    <div id="large-square">
+                        <p id="titulo-square-edit" class="row justify-content-center">Informações</p>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-4 mb-3">
+                                <label for="ClientName" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="ClientName" name="ClientName" value="{{ client.name if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientComplement" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="ClientComplement" name="ClientComplement" value="{{ client.complement if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientStreet" class="form-label">Rua</label>
+                                <input type="text" class="form-control" id="ClientStreet" name="ClientStreet" value="{{ client.street if client else '' }}">
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputComplementoClient" class="form-label">Complemento</label>
-                            <input type="text" class="form-control" id="ClientComplement" name="ClientComplement" disabled>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 mb-3">
+                                <label for="ClientNeighborhood" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="ClientNeighborhood" name="ClientNeighborhood" value="{{ client.neighborhood if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientCep" class="form-label">CEP</label>
+                                <input type="number" class="form-control" id="ClientCep" name="ClientCep" value="{{ client.cep if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientCpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="ClientCpf" name="ClientCpf" value="{{ client.cpf if client else '' }}">
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputRuaClient" class="form-label">Rua</label>
-                            <input type="text" class="form-control" id="ClientStreet" name="ClientStreet" disabled>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 mb-3">
+                                <label for="ClientDateBirth" class="form-label">Data de Nascimento</label>
+                                <input type="date" class="form-control" id="ClientDateBirth" name="ClientDateBirth" value="{{ client.birth_date if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientNumberPhone" class="form-label">Telefone</label>
+                                <input type="text" class="form-control" id="ClientNumberPhone" name="ClientNumberPhone" value="{{ client.phone if client else '' }}">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="ClientNumberHouse" class="form-label">Número</label>
+                                <input type="number" class="form-control" id="ClientNumberHouse" name="ClientNumberHouse" value="{{ client.house_number if client else '' }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-3">
-                            <label for="InputBairro" class="form-label">Bairro</label>
-                            <input type="text" class="form-control" id="ClientNeighborhood" name="ClientNeighborhood" disabled>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputCepClient" class="form-label">CEP</label>
-                            <input type="number" class="form-control" id="ClientCep" name="ClientCep" disabled>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputCpfClient" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="ClientCpf" name="ClientCpf" disabled>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-3">
-                            <label for="InputDataClient" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="ClientDateBirth" name="ClientDateBirth" disabled>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputTelefoneClient" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="ClientNumberPhone" name="ClientNumberPhone" disabled>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="InputNumeroCasaClient" class="form-label">Número</label>
-                            <input type="number" class="form-control" id="ClientNumberHouse" name="ClientNumberHouse" disabled>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 text-center">
-                            <div class="mb-3">
-                                <button id="botao-confirmedit-patient" type="submit" class="btn btn-success" disabled>Confirmar Edição</button>
-                                <button id="botao-excluir-patient" type="button" class="btn btn-danger" disabled>Excluir</button>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 text-center">
+                                <button id="botao-confirmedit-patient" name="update" type="submit" class="btn btn-success">Confirmar Edição</button>
+                                <button id="botao-excluir-patient" name="delete" type="submit" class="btn btn-danger">Excluir</button>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
