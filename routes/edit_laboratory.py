@@ -6,7 +6,7 @@ edit_laboratory_bp = Blueprint("edit_laboratory", __name__)
 
 @edit_laboratory_bp.route("/edit_laboratory", methods=["GET", "POST"])
 @login_required
-def edit_user():
+def edit_laboratory():
     if request.method == "POST":
         if 'search' in request.form:
             search_id = request.form.get("SearchID")
@@ -31,7 +31,7 @@ def edit_user():
             laboratory_phone = request.form.get("LaboratoryNumberPhone")
             laboratory_neighborhood = request.form.get("LaboratoryNeighborhood")
             laboratory_street = request.form.get("LaboratoryStreet")
-            laboratory_number_house = request.form.get("LaboratoryNumberHouse")
+            laboratory_number_house = request.form.get("LaboratoryNumberAddress")
             laboratory_cep = request.form.get("LaboratoryCep")
             laboratory_complement = request.form.get("LaboratoryComplement")
 
@@ -48,7 +48,6 @@ def edit_user():
             )
 
             flash("Laboratório atualizado com sucesso", "success")
-
             return redirect(url_for("edit_laboratory.edit_laboratory"))
 
         elif 'delete' in request.form:
@@ -57,7 +56,6 @@ def edit_user():
             delete_laboratory_bd(laboratory_id)
 
             flash("Laboratório excluído com sucesso", "success")
-
             return redirect(url_for("edit_laboratory.edit_laboratory"))
 
     return render_template("edit_laboratory.html")

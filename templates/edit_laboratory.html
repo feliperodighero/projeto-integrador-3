@@ -41,35 +41,35 @@
 
     <div id="dropdown-bar" class="dropdown">
         <p>Selecione as informações que deseja pesquisar</p>
-        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Informações
-        </button>
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Informações</button>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#" id="search-id">ID</a></li>
             <li><a class="dropdown-item" href="#" id="search-cnpj">CNPJ</a></li>
             <li><a class="dropdown-item" href="#" id="search-name">Nome</a></li>
         </ul>
     </div>
+
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8">
                 <form id="searchForm" method="POST" action="/edit_laboratory">
                     <div id="id-container" class="col-12 col-md-3 mb-3">
-                        <label for="InputID" class="form-label">ID</label>
+                        <label for="SearchID" class="form-label">ID</label>
                         <input type="text" class="form-control" id="SearchID" name="SearchID" value="{{ laboratory.id if laboratory else '' }}">
                     </div>
 
                     <div id="id-container1" class="col-12 col-md-3 mb-3">
-                        <label for="InputCpfCnpj" class="form-label">CNPJ</label>
+                        <label for="SearchCnpj" class="form-label">CNPJ</label>
                         <input type="text" class="form-control" id="SearchCnpj" name="SearchCnpj" value="{{ laboratory.cnpj if laboratory else '' }}">
                     </div>
 
                     <div id="id-container2" class="col-12 col-md-4 mb-3">
-                        <label for="InputNome" class="form-label">Nome</label>
+                        <label for="SearchName" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="SearchName" name="SearchName" value="{{ laboratory.name if laboratory else '' }}">
                     </div>
+
                     <div class="col-12 col-md-4 text-center">
-                        <button id="botao-edit-laboratory" type="submit" class="btn btn-success">Pesquisar</button>
+                        <button id="botao-edit-laboratory" type="submit" class="btn btn-success" name="search">Pesquisar</button>
                     </div>
                 </form>
             </div>
@@ -81,59 +81,58 @@
                         <div class="row justify-content-center">
                             <div class="col-12 col-md-4 mb-3">
                                 <div class="mb-1">
-                                    <label for="InputNome" class="form-label">Nome</label>
+                                    <label for="LaboratoryName" class="form-label">Nome</label>
                                     <input type="text" class="form-control" id="LaboratoryName" name="LaboratoryName" value="{{ laboratory.name if laboratory else '' }}">
                                 </div>
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="InputRua" class="form-label">Rua</label>
+                                <label for="LaboratoryStreet" class="form-label">Rua</label>
                                 <input type="text" class="form-control" id="LaboratoryStreet" name="LaboratoryStreet" value="{{ laboratory.street if laboratory else '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="InputNumeroEndereco" class="form-label">Número</label>
-                                <input type="number" class="form-control" id="LaboratoryNumberAdress" name="LaboratoryNumberAdress" value="{{ laboratory.house_number if laboratory else '' }}">
+                                <label for="LaboratoryNumberAddress" class="form-label">Número</label>
+                                <input type="number" class="form-control" id="LaboratoryNumberAddress" name="LaboratoryNumberAddress" value="{{ laboratory.house_number if laboratory else '' }}">
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-4 mb-3">
-                                <label for="InputCnpj" class="form-label">CNPJ</label>
+                                <label for="LaboratoryCnpj" class="form-label">CNPJ</label>
                                 <input type="text" class="form-control" id="LaboratoryCnpj" name="LaboratoryCnpj" value="{{ laboratory.cnpj if laboratory else '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="InputCep" class="form-label">CEP</label>
+                                <label for="LaboratoryCep" class="form-label">CEP</label>
                                 <input type="number" class="form-control" id="LaboratoryCep" name="LaboratoryCep" value="{{ laboratory.cep if laboratory else '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
-                                <label for="InputTelefone" class="form-label">Telefone</label>
+                                <label for="LaboratoryNumberPhone" class="form-label">Telefone</label>
                                 <input type="text" class="form-control" id="LaboratoryNumberPhone" name="LaboratoryNumberPhone" value="{{ laboratory.phone if laboratory else '' }}">
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 mb-3">
-                                <label for="InputComplemento" class="form-label">Complemento</label>
+                                <label for="LaboratoryComplement" class="form-label">Complemento</label>
                                 <input type="text" class="form-control" id="LaboratoryComplement" name="LaboratoryComplement" value="{{ laboratory.complement if laboratory else '' }}">
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="InputBairro" class="form-label">Bairro</label>
+                                <label for="LaboratoryNeighborhood" class="form-label">Bairro</label>
                                 <input type="text" class="form-control" id="LaboratoryNeighborhood" name="LaboratoryNeighborhood" value="{{ laboratory.neighborhood if laboratory else '' }}">
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center">
                                 <div class="mb-3">
-                                    <button id="botao-confirmedit-laboratory" type="submit" class="btn btn-success" disabled>Confirmar Edição</button>
-                                    <button id="botao-excluir-laboratory" type="submit" class="btn btn-danger" disabled>Excluir</button>
+                                    <button id="botao-confirmedit-laboratory" type="submit" class="btn btn-success" name="update">Confirmar Edição</button>
+                                    <button id="botao-excluir-laboratory" type="submit" class="btn btn-danger" name="delete">Excluir</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/validate_edit_laboratory.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/validate_edit_laboratory.js') }}"></script>
 </body>
-
 </html>
