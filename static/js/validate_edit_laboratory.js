@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchID = document.getElementById('SearchID');
     const searchCnpj = document.getElementById('SearchCnpj');
-    const searchName = document.getElementById('SearchName');
     const botaoPesquisar = document.getElementById('botao-edit-laboratory');
     const laboratoryId = document.getElementById('LaboratoryId');
 
-    const searchFields = [searchID, searchCnpj, searchName];
+    const searchFields = [searchID, searchCnpj];
     const otherFields = Array.from(document.querySelectorAll('.form-control')).filter(field => !searchFields.includes(field));
 
     function disableAllFields() {
@@ -30,13 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
         searchCnpj.disabled = false;
     });
 
-    document.getElementById('search-name').addEventListener('click', function () {
-        disableAllFields();
-        searchName.disabled = false;
-    });
-
     botaoPesquisar.addEventListener('click', function (event) {
-        if (searchID.value || searchCnpj.value || searchName.value) {
+        if (searchID.value || searchCnpj.value) {
             // Permite que o formulário de pesquisa seja enviado
             enableOtherFields();
         } else {

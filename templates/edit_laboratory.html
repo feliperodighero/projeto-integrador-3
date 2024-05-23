@@ -45,7 +45,6 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#" id="search-id">ID</a></li>
             <li><a class="dropdown-item" href="#" id="search-cnpj">CNPJ</a></li>
-            <li><a class="dropdown-item" href="#" id="search-name">Nome</a></li>
         </ul>
     </div>
 
@@ -61,11 +60,6 @@
                     <div id="id-container1" class="col-12 col-md-3 mb-3">
                         <label for="SearchCnpj" class="form-label">CNPJ</label>
                         <input type="text" class="form-control" id="SearchCnpj" name="SearchCnpj" value="{{ laboratory.cnpj if laboratory else '' }}">
-                    </div>
-
-                    <div id="id-container2" class="col-12 col-md-4 mb-3">
-                        <label for="SearchName" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="SearchName" name="SearchName" value="{{ laboratory.name if laboratory else '' }}">
                     </div>
 
                     <div class="col-12 col-md-4 text-center">
