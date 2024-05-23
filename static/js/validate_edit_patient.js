@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchID = document.getElementById('SearchID');
     const searchCpfCnpj = document.getElementById('SearchCpfCnpj');
-    const searchName = document.getElementById('SearchName');
+
 
     function disableAllFields() {
         searchID.disabled = true;
         searchCpfCnpj.disabled = true;
-        searchName.disabled = true;
+
     }
 
     document.getElementById('search-id').addEventListener('click', function () {
@@ -19,10 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
         searchCpfCnpj.disabled = false;
     });
 
-    document.getElementById('search-name').addEventListener('click', function () {
-        disableAllFields();
-        searchName.disabled = false;
-    });
 
     disableAllFields();
 });
@@ -31,11 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const searchID = document.getElementById('SearchID');
     const searchCpfCnpj = document.getElementById('SearchCpfCnpj');
-    const searchName = document.getElementById('SearchName');
     const botaoEditUser = document.getElementById('botao-edit-user');
 
     function disableAllFields() {
-        [searchID, searchCpfCnpj, searchName].forEach(field => {
+        [searchID, searchCpfCnpj].forEach(field => {
             field.disabled = true;
             field.value = '';
         });
@@ -55,13 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
         searchCpfCnpj.disabled = false;
     });
 
-    document.getElementById('search-name').addEventListener('click', function () {
-        disableAllFields();
-        searchName.disabled = false;
-    });
 
     botaoEditUser.addEventListener('click', function (event) {
-        const isValid = searchID.value || searchCpfCnpj.value || searchName.value;
+        const isValid = searchID.value || searchCpfCnpj.value;
         if (!isValid) {
             event.preventDefault();
             alert('Por favor, preencha um dos campos de busca.');

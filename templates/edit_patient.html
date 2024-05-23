@@ -47,7 +47,6 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#" id="search-id">ID</a></li>
             <li><a class="dropdown-item" href="#" id="search-cpf">CPF</a></li>
-            <li><a class="dropdown-item" href="#" id="search-name">Nome</a></li>
         </ul>
     </div>
     <div class="container">
@@ -64,10 +63,6 @@
                         <input type="text" class="form-control" id="SearchCpfCnpj" name="SearchCpfCnpj" value="{{ patient.cpf if patient else '' }}">
                     </div>
 
-                    <div id="id-container2" class="col-12 col-md-4 mb-3">
-                        <label for="InputNome" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="SearchName" name="SearchName" value="{{ patient.name if patient else '' }}">
-                    </div>
                     <div class="col-12 col-md-4 text-center">
                         <button id="botao-edit-patient" name="search" type="submit" class="btn btn-success">Pesquisar</button>
                     </div>
