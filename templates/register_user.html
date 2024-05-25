@@ -106,9 +106,10 @@
                 </div>
             </div>
         </div>
-            <div class="col-auto my-1">
-                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Cargo</label>
-                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="UserCodeCarg">
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-3">
+                <label class="form-label" for="inlineFormCustomSelect">Cargo</label>
+                <select class="form-select id="inlineFormCustomSelect" name="UserCodeCarg">
                     <option selected>Escolher...</option>
                     <option value="1">Dentista</option>
                     <option value="2">Secretário(a)</option>
@@ -117,7 +118,6 @@
                     Por favor,selecione seu cargo.
                 </div>
             </div>
-        </div>
             <div class="col-md-3 mb-3">
                 <label for="InputRua" class="form-label">Rua</label>
                 <input type="text" class="form-control" id="UserStreet" name="UserStreet" />
@@ -125,14 +125,14 @@
                     Por favor, insira a sua rua.
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-2 mb-3">
                 <label for="InputNumeroCasa" class="form-label">Número da Casa</label>
                 <input type="number" class="form-control" id="UserNumberHouse" name="UserNumberHouse" />
                 <div id="NumberError" style="display: none; color: red;">
                     Por favor, insira o número da residencia.
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+            <div class="col-md-4 mb-3">
                 <label for="InputBairro" class="form-label">Bairro</label>
                 <input type="text" class="form-control" id="UserNeighborhood" name="UserNeighborhood" />
                 <div id="NeighborhoodError" style="display: none; color: red;">

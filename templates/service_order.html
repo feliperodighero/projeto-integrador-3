@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odonto Organiza</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <img src="https://clinicasorrisi.com.br/wp-content/uploads/2019/04/cropped-favicon5.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+            <span style="color: white; font-size: 30px; font-family: Arial; font-weight: bold;">Odonto Organiza</span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Página Inicial</a>
+                    <a class="nav-link active" aria-current="page" href="/select_user_patient">Cadastros</a>
+                    <a class="nav-link active" aria-current="page" href="#">O.S. Painel</a>
+                </div>
+                <div class="ms-auto">
+                    <li id="navbar-dropdown" class="nav-item dropstart">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false"></button>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            <li><a class="dropdown-item" href="/logout">Sair</a></li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <body>
+        <div class="mu-container text-center">
+            <h1 id="titulo-edit">Painel Ordem de Serviço</h1>
+        </div>
+    <form class = "c-form" action = "" method="POST" c-append = "tabela-ordem-servico-info">
+        <div id = "container-ordem-servico" class="row justify-content-center">
+            <div class="col-md-2 mb-2">
+                <label for="InputNome" class="form-label">Itens Pedido</label>
+                <select class="form-select">
+                    <option selected>Selecione</option>
+                    <option value="1">Prótese Unitária</option>
+                    <option value="2">Próteste Total</option>
+                    <option value="3">Implante</option>
+                    <option value="4">Placa Bruxismo</option>
+                    <option value="5">Protetor Bucal</option>
+                  </select>
+               
+            </div>
+                <div class="col-md-1 mb-1">
+                    <label for="InputIDLaboratory" class="form-label">Laboratório</label>
+                    <input type="text" class="form-control" id="LaboratoryID" name="LaboratoryID">
+                </div>
+            <div class="col-md-1 mb-1">
+                <label for="InputNomeClient" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="ClientName" name="ClientName">
+            </div>
+            <div class="col-md-2 mb-2">
+                <label for="InputDataOrdemServico" class="form-label">Data</label>
+                <input type="date" class="form-control" id="ServiceOrderDate" name="ServiceOrderDate">
+            </div>
+            <div id= "botaopatient" class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <div class="mb-3">
+                        <button id="botaoOrdemServico" name="botaoOrdemServico" type="submit" class="btn btn-success">Cadastrar</button>
+                        <button id="botaoOrdemServico" name="botaoOrdemServico" type="button" class="btn btn-secondary" aria-label="Close" onclick="goBack()">Voltar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+        <div class="mu-container text-center">
+            <h2 id = "titulo2-ordem-servico">Ordens de Serviços</h2>
+            </div>
+
+        <table id = "tabela-ordem-servico" class="table">
+            <thead>
+              <tr id="titulos-tabela">
+                <th scope="col">Código</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-ordem-servico-info">
+                {% for order in orders %}
+              <tr>
+                <th id="titulos-tabela" scope="row">Código Pedido aqui</th>
+                <td id="titulos-tabela">Nome cliente aqui</td>
+                <td id="titulos-tabela"><button type="button" class="btn btn-success">Concluído</button> <button type="button" class="btn btn-warning">Em processo</button> <button type="button" class="btn btn-danger">Cancelado</button></td>
+                <td id="titulos-tabela"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Visualizar</button></td>
+              </tr> 
+                {% endfor %}
+            </tbody>
+          </table>
+  
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Informações da Ordem de Serviço</h1>
+                </div>
+                <div class="modal-body " id = "visualizar-ordem-servico">
+                    <ul>
+                        <li>Código do Pedido: </li>
+                        <li>Código do Laboratório: </li>
+                        <li>Nome do Laboratório: </li>
+                        <li>Código do Usuário: </li>
+                        <li>Nome do Usuário: </li>
+                        <li>Código do Cliente: </li>
+                        <li>Nome do Cliente: </li>
+                        <li>Status do Pedido: </li>
+                        <li>Data da Solicitação: </li>
+                        <li>Itens do Pedido: </li>
+                        <li>Valor Total: </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
