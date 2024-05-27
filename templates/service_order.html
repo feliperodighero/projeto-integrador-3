@@ -21,7 +21,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Página Inicial</a>
                     <a class="nav-link active" aria-current="page" href="/select_user_patient">Cadastros</a>
-                    <a class="nav-link active" aria-current="page" href="#">O.S. Painel</a>
+                    <a class="nav-link active" aria-current="page" href="/service_order">O.S. Painel</a>
                 </div>
                 <div class="ms-auto">
                     <li id="navbar-dropdown" class="nav-item dropstart">
@@ -51,7 +51,7 @@
                     <option value="4">Placa Bruxismo</option>
                     <option value="5">Protetor Bucal</option>
                   </select>
-               
+
             </div>
                 <div class="col-md-1 mb-1">
                     <label for="InputIDLaboratory" class="form-label">Laboratório</label>
@@ -96,11 +96,11 @@
                 <td id="titulos-tabela">Nome cliente aqui</td>
                 <td id="titulos-tabela"><button type="button" class="btn btn-success">Concluído</button> <button type="button" class="btn btn-warning">Em processo</button> <button type="button" class="btn btn-danger">Cancelado</button></td>
                 <td id="titulos-tabela"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Visualizar</button></td>
-              </tr> 
+              </tr>
                 {% endfor %}
             </tbody>
           </table>
-  
+
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">

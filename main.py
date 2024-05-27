@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from database.config import engine
 from database.models.login import User
 from routes.home import home_route
+from routes.service_order import service_order_route
 from routes.login import login_user
 from routes.register_patient import register_patient_bp
 from routes.register_user import register_user_bp
@@ -44,5 +45,6 @@ app.register_blueprint(edit_patient_bp)
 app.register_blueprint(edit_user_bp)
 app.register_blueprint(register_laboratory_bp)
 app.register_blueprint(edit_laboratory_bp)
+app.register_blueprint(service_order_route)
 
 app.run(debug=True)
