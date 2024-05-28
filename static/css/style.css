@@ -76,7 +76,6 @@
 #button-criar-pacientes, #button-criar-usuarios, #button-editar-pacientes, #button-editar-usuarios{
     margin-top: 25px;
 }
-<<<<<<< HEAD
 
 #botaolab{
     margin-top: 25px;
@@ -234,5 +233,19 @@
     margin-bottom: 50px;
     font-size: 20px;
 }
-=======
->>>>>>> 791f88ba8ef2cb94672afdf44ebe21b6207bc7ab
+
+#titulo2-ordem-servico {
+    margin-top: 30px;
+}
+
+#tabela-ordem-servico{
+    margin-top: 2px;
+}
+
+#container-ordem-servico{
+    margin-top: 60px;
+}
+
+#titulos-tabela{
+    text-align: center;
+}
