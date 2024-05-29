@@ -126,6 +126,10 @@
                                 <label for="UserNeighborhood" class="form-label">Bairro</label>
                                 <input type="text" class="form-control" id="UserNeighborhood" name="UserNeighborhood" value="{{ user.neighborhood if user else '' }}">
                             </div>
+                            <div class="col-md-10 mb-3">
+                                <label for="InputStatusUsuario" class="form-label">Status do Usuário</label>
+                                <button type="button" id-="botao-user-ativo" class="btn btn-primary">Ativo</button> <button type="button" id= "botao-user-inativo"class="btn btn-secondary">Inativo</button>
+                            </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center">

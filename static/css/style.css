@@ -126,11 +126,11 @@
 }
 
 #botao-confirmedit-user{
-    margin-top: 25px;
+    margin-top: 0px;
 }
 
 #botao-excluir-user{
-    margin-top: 25px;
+    margin-top: 0px;
 }
 
 #titulo-edit{
@@ -234,18 +234,58 @@
     font-size: 20px;
 }
 
-#titulo2-ordem-servico {
-    margin-top: 30px;
-}
-
-#tabela-ordem-servico{
-    margin-top: 2px;
-}
 
 #container-ordem-servico{
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
 #titulos-tabela{
     text-align: center;
 }
+
+#containerCreateOS{
+    margin-bottom: 1px;
+    margin-right: 50px;
+}
+
+#tituloprocedimentos{
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#botaoParaCadastro{
+    margin-top: 50px;
+    width: 140px;
+    height: 50px;
+}
+
+#containerDePesquisaOS{
+    margin-top: 180px;
+    margin-left: 400px;
+    text-align: center;
+}
+
+#containerDePesquisaOS2{
+    margin-top: 180px;
+    margin-left: 190px;
+    text-align: center;
+}
+
+#containerDePesquisaOS3{
+    margin-top: 180px;
+    margin-left: 110px;
+    text-align: center;
+}
+
+#container-ordem-servico{
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+#botaoPesquisarOS{
+    margin-top: 210px;
+    margin-left: 120px;
+}
+
+
