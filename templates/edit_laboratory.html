@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="LaboratoryNumberAddress" class="form-label">Número</label>
-                                <input type="number" class="form-control" id="LaboratoryNumberAddress" name="LaboratoryNumberAddress" value="{{ laboratory.house_number if laboratory else '' }}">
+                                <input type="number" class="form-control" id="LaboratoryNumberAddress" name="LaboratoryNumberAddress" value="{{ laboratory.number_address if laboratory else '' }}">
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -95,11 +95,11 @@
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="LaboratoryCep" class="form-label">CEP</label>
-                                <input type="number" class="form-control" id="LaboratoryCep" name="LaboratoryCep" value="{{ laboratory.cep if laboratory else '' }}">
+                                <input type="text" class="form-control" id="LaboratoryCep" name="LaboratoryCep" value="{{ laboratory.cep if laboratory else '' }}">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="LaboratoryNumberPhone" class="form-label">Telefone</label>
-                                <input type="text" class="form-control" id="LaboratoryNumberPhone" name="LaboratoryNumberPhone" value="{{ laboratory.phone if laboratory else '' }}">
+                                <input type="text" class="form-control" id="LaboratoryNumberPhone" name="LaboratoryNumberPhone" value="{{ laboratory.number_phone if laboratory else '' }}">
                             </div>
                         </div>
                         <div class="row justify-content-center">
