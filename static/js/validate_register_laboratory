@@ -1,23 +1,24 @@
+function goBack() {
+    window.location.href = '/select_user_patient';
+}
+
 (() => {
     'use strict'
-  
+
     const forms = document.querySelectorAll('.needs-validation')
-  
+
     Array.from(forms).forEach(form => {
       form.addEventListener('submit', event => {
         if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
         }
-  
+
         form.classList.add('was-validated')
       }, false)
     })
   })()
 
-function goBack() {
-    window.location.href = '/select_user_patient';
-}
 
 function validadeLaboratoryName() {
     var laboratoryname = document.getElementById("LaboratoryName").value;
