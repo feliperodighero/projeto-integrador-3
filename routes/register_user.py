@@ -3,12 +3,14 @@ from datetime import datetime
 from flask import Blueprint, redirect, render_template, request, url_for
 from flask_login import login_required
 from database.models.user import register_user_bd
+from database.models.login import role_required
 
 register_user_bp = Blueprint("register_user", __name__)
 
 
 @register_user_bp.route("/register_user", methods=["GET", "POST"])
 @login_required
+# @role_required(1)
 def register_user_route():
     if request.method == "POST":
         nome = request.form["UserName"]
