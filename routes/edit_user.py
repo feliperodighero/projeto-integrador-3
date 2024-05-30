@@ -10,13 +10,11 @@ def edit_user_route():
             search_id = request.form.get("SearchID")
             search_cpf = request.form.get("SearchCpfCnpj")
 
-
             user = None
             if search_id:
                 user = get_user_by_id(search_id)
             elif search_cpf:
                 user = get_user_by_cpf(search_cpf)
-
 
             if user:
                 return render_template("edit_user.html", user=user)
@@ -37,7 +35,8 @@ def edit_user_route():
                 "code_carg": request.form.get("UserCodeCarg"),
                 "street": request.form.get("UserStreet"),
                 "house_number": request.form.get("UserNumberHouse"),
-                "neighborhood": request.form.get("UserNeighborhood")
+                "neighborhood": request.form.get("UserNeighborhood"),
+                "status_usu": request.form.get("UserStatus")
             }
 
             # Verificar se todas as chaves estão presentes
@@ -64,7 +63,7 @@ def edit_user_route():
                 user_data["house_number"],
                 user_data["neighborhood"],
                 user_data["complement"],
-                status_usu=True
+                user_data["status_usu"]
             )
             flash("Usuário atualizado com sucesso", "success")
             return redirect(url_for("edit_user.edit_user_route"))

@@ -106,8 +106,12 @@ def get_user_by_cpf(cpf):
         session.close()
 
 def update_user_bd(
-    user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento, status_usu=True
+    user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento, status_usu
 ):
+    if status_usu == "Ativo":
+        status_usu = True
+    else:
+        status_usu = False
     session = Session()
     try:
         senha_hash = generate_password_hash(senha)

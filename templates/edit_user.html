@@ -52,7 +52,7 @@
             <div class="col-12 col-md-8">
                 <form id="searchForm" method="POST" action="/edit_user">
                     <div id="id-container" class="col-12 col-md-3 mb-3">
-                        <label for="InputID" class="form-label">ID</label>
+                        <label for="InputID" class="form-label">Código</label>
                         <input type="text" class="form-control" id="SearchID" name="SearchID" value="{{ user.id if user else '' }}">
                     </div>
                     <div id="id-container1" class="col-12 col-md-3 mb-3">
@@ -126,19 +126,19 @@
                                 <label for="UserNeighborhood" class="form-label">Bairro</label>
                                 <input type="text" class="form-control" id="UserNeighborhood" name="UserNeighborhood" value="{{ user.neighborhood if user else '' }}">
                             </div>
-                        <div  id= "titulo-check-box-edit-user" class="row">
-                        <div class="col-md-10 mb-3">
-                            <label for="InputStatusUsuario" class="form-label">Status do Usuário</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="StatusAtivo" name="StatusAtivo">
-                                <label class="form-check-label" for="flexRadioDefault1">Ativo</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="StatusInativo" name="StatusInativo">
-                                <label class="form-check-label" for="flexRadioDefault2">Inativo</label>
-                                </div>  
-                             </div>
-                           </div>
+                            <div id="titulo-check-box-edit-user" class="row">
+                                <div class="col-md-10 mb-3">
+                                    <label for="InputStatusUsuario" class="form-label">Status do Usuário</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UserStatus" id="StatusAtivo" value="True" {% if user and user.status_usu %}checked{% endif %}>
+                                        <label class="form-check-label" for="StatusAtivo">Ativo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="UserStatus" id="StatusInativo" value="False" {% if user and not user.status_usu %}checked{% endif %}>
+                                        <label class="form-check-label" for="StatusInativo">Inativo</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center">
