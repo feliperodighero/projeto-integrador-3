@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from database.models.service_order import register_service_order_bd, search_order_bd
+from database.models.service_order import register_service_order_bd, search_order_bd, get_order_details
 
 service_order_route = Blueprint("service_order", __name__)
 
@@ -12,10 +12,11 @@ def service_order():
         client_name = request.form.get("ClientName")
         laboratory_name = request.form.get("LaboratoryName")
         items = request.form.getlist("ItemName")
+        value_order = request.form.get("ValueOrder")
         date_register = datetime.now()  # Obter todos os itens selecionados
-        print(client_name, laboratory_name, items, current_user.id)
+        print(client_name, laboratory_name, items, current_user.id, date_register, value_order)
 
-        register_service_order_bd(client_name, laboratory_name, items, current_user.id, date_register)
+        register_service_order_bd(client_name, laboratory_name, items, current_user.id, date_register, value_order)
 
 
         flash("Ordem de serviço cadastrada com sucesso!", "success")
@@ -30,8 +31,19 @@ def search_orders():
     order_code = data.get("OrderCode")
     patient_name = data.get("PatientName")
     order_date = data.get("OrderDate")
-    print(order_code, patient_name, order_date)
+    valuer_order = data.get("ValueOrder")
+
+    print(order_code, patient_name, order_date, valuer_order)
 
     orders_list = search_order_bd(order_code, patient_name, order_date)
 
     return jsonify({"orders": orders_list})
+
+@service_order_route.route('/order_details/<int:order_code>', methods=['GET'])
+@login_required
+def order_details(order_code):
+    details = get_order_details(order_code)
+    if details:
+        return jsonify(details)
+    else:
+        return jsonify({"error": "Order not found"}), 404

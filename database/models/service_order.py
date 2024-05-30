@@ -10,9 +10,11 @@ def register_service_order_bd(
         product_names,
         user_id,
         date_register_order,
-        status_order = 1, # código do usuário logado
+        value_order,
+        status_order=1,
 ):
     session = Session()
+    print(product_names)
     try:
         # Buscar o código do cliente
         query = text("""SELECT CD_CLI FROM CLIENTE WHERE NM_CLI = :client_name""")
@@ -26,20 +28,48 @@ def register_service_order_bd(
         laboratory_code = result.scalar()
         print(laboratory_code)
 
-        inser_query = text("""INSERT INTO PEDIDO (CD_LAB, CD_USU, CD_CLI, STATUS_PED, DT_PED) VALUES (:laboratory_code, :user_id, :client_code, :status_order, :date_register_order)""")
-        session.execute(inser_query, {
+        # Inserir o pedido na tabela PEDIDO e recuperar o código inserido
+        insert_query = text("""
+            INSERT INTO PEDIDO (CD_LAB, CD_USU, CD_CLI, STATUS_PED, DT_PED, VLR_TOTAL)
+            OUTPUT inserted.CD_PED
+            VALUES (:laboratory_code, :user_id, :client_code, :status_order, :date_register_order, :vlr_total)
+        """)
+        result = session.execute(insert_query, {
             "laboratory_code": laboratory_code,
             "user_id": user_id,
             "client_code": client_code,
             "status_order": status_order,
-            "date_register_order": date_register_order
+            "date_register_order": date_register_order,
+            "vlr_total": value_order
         })
+        pedido_code = result.scalar()
+        print(pedido_code)
+
+        if not pedido_code:
+            raise ValueError("Falha ao obter o código do pedido.")
+
+        # Inserir itens na tabela PEDIDO_IT
+        for product_name in product_names:
+            # Buscar o código do produto
+            product_code_query = text("""SELECT CD_PROD FROM PRODUTO WHERE NM_PROD = :product_name""")
+            result = session.execute(product_code_query, {"product_name": product_name})
+            product_code = result.scalar()
+            print(product_code)
+
+            # Inserir o item do pedido na tabela PEDIDO_IT
+            insert_item_query = text("""INSERT INTO PEDIDO_IT (CD_PED, CD_PROD) VALUES (:pedido_code, :product_code)""")
+            session.execute(insert_item_query, {
+                "pedido_code": pedido_code,
+                "product_code": product_code
+            })
+
         session.commit()
     except Exception as e:
         session.rollback()
         print(f"Error: {e}")
     finally:
         session.close()
+
 
 def search_order_bd(order_code, patient_name, order_date):
     session = Session()
@@ -70,5 +100,47 @@ def search_order_bd(order_code, patient_name, order_date):
 
     except Exception as e:
         print(f"Error: {e}")
+    finally:
+        session.close()
+
+def get_order_details(order_code):
+    session = Session()
+    try:
+        query = text("""
+            SELECT CD_PED, CD_LAB, CD_USU, CD_CLI, STATUS_PED, DT_PED, VLR_TOTAL FROM PEDIDO WHERE CD_PED = :order_code
+        """)
+        result = session.execute(query, {"order_code": order_code}).fetchone()
+
+        if not result:
+            return None
+
+        print(f"Result: {result}")
+
+        order_details = {
+            "order_code": result[0],
+            "lab_code": result[1],
+            "user_code": result[2],
+            "client_code": result[3],
+            "order_status": result[4],
+            "order_date": result[5].strftime("%Y-%m-%d"),
+            "total_value": result[6],
+        }
+
+        items_query = text("""
+            SELECT i.CD_PROD, p.NM_PROD
+            FROM PEDIDO_IT i
+            JOIN PRODUTO p ON i.CD_PROD = p.CD_PROD
+            WHERE i.CD_PED = :order_code
+        """)
+        items_result = session.execute(items_query, {"order_code": order_code}).fetchall()
+
+        order_items = [{"product_code": item[0], "product_name": item[1]} for item in items_result]
+        order_details["items"] = order_items
+
+        return order_details
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
     finally:
         session.close()

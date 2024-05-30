@@ -80,14 +80,16 @@
                 </tr>
             </thead>
             <tbody id="tabela-ordem-servico-info">
-                <!-- {% for order in orders %} -->
+                {% for order in orders %}
                 <tr>
-                    <th id="titulos-tabela" scope="row">Código Pedido aqui</th>
-                    <td id="titulos-tabela">Nome cliente aqui</td>
-                    <td id="titulos-tabela">Data aqui</td>
-                    <td id="titulos-tabela"><button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#visualizarModal">Visualizar</button></td>
+                    <th id="titulos-tabela" scope="row">{{ order.order_code }}</th>
+                    <td id="titulos-tabela">{{ order.patient_name }}</td>
+                    <td id="titulos-tabela">{{ order.order_date }}</td>
+                    <td id="titulos-tabela">
+                        <button type="button" class="btn btn-secondary btn-visualizar" data-bs-toggle="modal" data-bs-target="#visualizarModal" data-order-code="{{ order.order_code }}">Visualizar</button>
+                    </td>
                 </tr>
-                <!-- {% endfor %} -->
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -100,18 +102,22 @@
                 </div>
                 <div class="modal-body" id="visualizarOrdemServico" name="visualizarOrdemServico">
                     <ul>
-                        <li>Código do Pedido: </li>
-                        <li>Código do Laboratório: </li>
-                        <li>Nome do Laboratório: </li>
-                        <li>Código do Usuário: </li>
-                        <li>Nome do Usuário: </li>
-                        <li>Código do Cliente: </li>
-                        <li>Nome do Cliente: </li>
-                        <li>Data da Solicitação: </li>
-                        <li>Itens do Pedido: </li>
-                        <li>Valor Total R$: </li>
-                        <li>Status do Pedido: </li>
-                        <td id="titulos-tabela"><button type="button" class="btn btn-success">Concluído</button> <button type="button" class="btn btn-warning">Em processo</button> <button type="button" class="btn btn-danger">Cancelado</button></td>
+                        <li id="pedido-codigo">Código do Pedido: </li>
+                        <li id="laboratorio-codigo">Código do Laboratório: </li>
+                        <li id="laboratorio-nome">Nome do Laboratório: </li>
+                        <li id="usuario-codigo">Código do Usuário: </li>
+                        <li id="usuario-nome">Nome do Usuário: </li>
+                        <li id="cliente-codigo">Código do Cliente: </li>
+                        <li id="cliente-nome">Nome do Cliente: </li>
+                        <li id="data-solicitacao">Data da Solicitação: </li>
+                        <li id="itens-pedido">Itens do Pedido: </li>
+                        <li id="valor-total">Valor Total R$: </li>
+                        <li id="status-pedido">Status do Pedido: </li>
+                        <td id="titulos-tabela">
+                            <button type="button" class="btn btn-success">Concluído</button>
+                            <button type="button" class="btn btn-warning">Em processo</button>
+                            <button type="button" class="btn btn-danger">Cancelado</button>
+                        </td>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -120,7 +126,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalCadastrar" name="modalCadastrar" tabindex="-1" aria-labelledby="modalCadastrar" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -160,6 +165,8 @@
                                         <input class="form-check-input" type="checkbox" id="protetorBucal" name="ItemName" value="Protetor Bucal">
                                         <label class="form-check-label" for="protetorBucal">Protetor Bucal</label>
                                     </div>
+                                    <label for="InputValueOrder" class="form-label">Valor</label>
+                                    <input type="text" class="form-control" id="ValueOrder" name="ValueOrder" placeholder="R$">
                                 </div>
                             </div>
                         </ul>
