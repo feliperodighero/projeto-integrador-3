@@ -27,7 +27,6 @@ def load_user(user_id):
         text("SELECT * FROM USUARIO WHERE CD_USU = :user_id"),
         {"user_id": user_id},
     ).fetchone()
-    print(user)
     if user:
         return User(user[0], user[1], user[4], user[5], user[6])
     return None

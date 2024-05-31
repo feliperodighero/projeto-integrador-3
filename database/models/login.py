@@ -27,7 +27,6 @@ def login_authenticate(login, password):
         text("SELECT * FROM USUARIO WHERE CD_USU = :login"),
         {"login": login},
     ).fetchone()
-    print(user)
     if user and check_password_hash(user[2], password):
         if user[6] == 1:
             user_obj = User(user[0], user[1], user[4], user[5], user[6])

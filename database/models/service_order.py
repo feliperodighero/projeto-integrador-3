@@ -1,3 +1,4 @@
+import locale
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
 from database.config import engine
@@ -70,6 +71,8 @@ def register_service_order_bd(
     finally:
         session.close()
 
+# Formatação da moeda
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 def search_order_bd(order_code, patient_name, order_date):
     session = Session()
@@ -107,23 +110,44 @@ def get_order_details(order_code):
     session = Session()
     try:
         query = text("""
-            SELECT CD_PED, CD_LAB, CD_USU, CD_CLI, STATUS_PED, DT_PED, VLR_TOTAL FROM PEDIDO WHERE CD_PED = :order_code
+            SELECT
+                p.CD_PED,
+                p.CD_LAB,
+                l.NM_LAB,
+                p.CD_USU,
+                u.NM_USU,
+                p.CD_CLI,
+                c.NM_CLI,
+                p.STATUS_PED,
+                p.DT_PED,
+                p.VLR_TOTAL
+            FROM
+                PEDIDO p
+            JOIN
+                LABORATORIO l ON p.CD_LAB = l.CD_LAB
+            JOIN
+                USUARIO u ON p.CD_USU = u.CD_USU
+            JOIN
+                CLIENTE c ON p.CD_CLI = c.CD_CLI
+            WHERE
+                p.CD_PED = :order_code
         """)
         result = session.execute(query, {"order_code": order_code}).fetchone()
 
         if not result:
             return None
 
-        print(f"Result: {result}")
-
         order_details = {
             "order_code": result[0],
             "lab_code": result[1],
-            "user_code": result[2],
-            "client_code": result[3],
-            "order_status": result[4],
-            "order_date": result[5].strftime("%Y-%m-%d"),
-            "total_value": result[6],
+            "lab_name": result[2],
+            "user_code": result[3],
+            "user_name": result[4],
+            "client_code": result[5],
+            "client_name": result[6],
+            "order_status": result[7],
+            "order_date": result[8].strftime("%Y-%m-%d"),
+            "total_value": locale.currency(result[9], grouping=True),
         }
 
         items_query = text("""
@@ -142,5 +166,23 @@ def get_order_details(order_code):
     except Exception as e:
         print(f"Error: {e}")
         return None
+    finally:
+        session.close()
+
+def update_order_status(order_code, new_status):
+    session = Session()
+    try:
+        query = text("""
+            UPDATE PEDIDO
+            SET STATUS_PED = :new_status
+            WHERE CD_PED = :order_code
+        """)
+        session.execute(query, {"new_status": new_status, "order_code": order_code})
+        session.commit()
+        return True
+    except Exception as e:
+        print(f"Error: {e}")
+        session.rollback()
+        return False
     finally:
         session.close()

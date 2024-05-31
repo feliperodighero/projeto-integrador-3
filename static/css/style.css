@@ -85,6 +85,14 @@
     margin-top: 80px;
 }
 
+.status-btn {
+    opacity: 0.5;
+}
+
+.status-btn.active {
+    opacity: 1;
+}
+
 #botaouser{
     margin-top: 25px;
 }
@@ -258,7 +266,7 @@
 #botaoPesquisarOS {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px; 
+    margin-top: 30px;
     flex: 1;
     display: flex;
     justify-content: center;

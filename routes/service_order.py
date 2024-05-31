@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from database.models.service_order import register_service_order_bd, search_order_bd, get_order_details
+from database.models.service_order import register_service_order_bd, search_order_bd, get_order_details, update_order_status
 
 service_order_route = Blueprint("service_order", __name__)
 
@@ -42,8 +42,24 @@ def search_orders():
 @service_order_route.route('/order_details/<int:order_code>', methods=['GET'])
 @login_required
 def order_details(order_code):
+    print(order_code)
     details = get_order_details(order_code)
     if details:
         return jsonify(details)
     else:
         return jsonify({"error": "Order not found"}), 404
+
+
+@service_order_route.route("/update_order_status", methods=["POST"])
+@login_required
+def update_order_status_endpoint():
+    data = request.get_json()
+    order_code = data.get("order_code")
+    new_status = data.get("new_status")
+
+    success = update_order_status(order_code, new_status)
+
+    if success:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False}), 500
