@@ -44,32 +44,32 @@
             <button id="botaoParaCadastro" name="botaoParaCadastro" type="button" class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#modalCadastrar">Cadastrar</button>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-1 mb-2" id="containerDePesquisaOS">
+    <div id="containerDePesquisa" class="mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-3 mb-1">
                 <label for="InputCodeOS" class="form-label">Código Ordem de Serviço</label>
                 <input type="number" class="form-control" list="ListaCodigoOS" id="listaCodigoOS">
                 <datalist id="ListaCodigoOS">
                 </datalist>
             </div>
-            <div class="col-md-1 mb-2" id="containerDePesquisaOS2">
+            <div class="col-md-3 mb-1">
                 <label for="InputNameClient" class="form-label">Nome do Paciente</label>
                 <input type="text" class="form-control" list="ListaNomePacienteOS" id="ListaNomePacienteOS">
                 <datalist id="ListaNomePacienteOS">
                 </datalist>
             </div>
-            <div class="col-md-1 mb-1" id="containerDePesquisaOS3">
+            <div class="col-md-2 mb-1">
                 <label for="InputDateOS" class="form-label">Data</label>
                 <input type="date" class="form-control" list="ListaDateOS" id="ListaDateOS">
                 <datalist id="ListaDateOS">
                 </datalist>
             </div>
-            <div class="col-md-1 mb-2 d-flex align-items-end">
+            <div class="col-md-2 mb-1">
                 <button type="button" class="btn btn-secondary w-100" id="botaoPesquisarOS" name="botaoPesquisarOS">Pesquisar</button>
             </div>
         </div>
     </div>
-    <div class="container" id="container-ordem-servico">
+    <div class="container" id="container-tabela-ordem-servico">
         <table id="tabela-ordem-servico" class="table">
             <thead>
                 <tr id="titulos-tabela">

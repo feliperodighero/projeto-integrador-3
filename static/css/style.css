@@ -58,7 +58,7 @@
 #titulo-login{
     margin-bottom: 40px;
     font-size: 40px;
-    margin-left: 10px;
+    margin-right: 60px;
 }
 
 #copyright{
@@ -67,7 +67,7 @@
 }
 
 .card-container {
-    margin-top: 100px;
+    margin-top: 190px;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -234,11 +234,6 @@
     font-size: 20px;
 }
 
-
-#container-ordem-servico{
-    margin-top: 20px;
-}
-
 #titulos-tabela{
     text-align: center;
 }
@@ -260,54 +255,29 @@
     height: 50px;
 }
 
-#containerDePesquisaOS,
-#containerDePesquisaOS2,
-#containerDePesquisaOS3 {
-    text-align: center;
-    margin-top: 50px;
-}
-
 #botaoPesquisarOS {
     margin-left: auto;
     margin-right: auto;
-}
-
-
-@media (min-width: 768px) {
-    .d-flex {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 90px;
-    }
-
-    #containerDePesquisaOS,
-    #containerDePesquisaOS2,
-    #containerDePesquisaOS3 {
-        margin: 10px;
-        flex: 1;
-    }
-
-    #botaoPesquisarOS {
-        margin-top: 30px; 
-        flex: 1;
-    }
-}
-
-@media (min-width: 992px) {
-    #containerDePesquisaOS,
-    #containerDePesquisaOS2,
-    #containerDePesquisaOS3 {
-        margin: 0 20px;
-        margin-top: 90px;
-    }
+    margin-top: 30px; 
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 #titulo-check-box-edit-user{
     margin-left: 105px;
 }
-
-#container-ordem-servico{
+#container-tabela-ordem-servico{
     border: 3px solid black;
     border-radius: 10px;
+    margin-top: 20px;
+}
+
+#containerDePesquisa
+#containerDePesquisaOS2,
+#containerDePesquisaOS3 {
+    container: 'containerDePesquisa';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
