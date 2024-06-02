@@ -2,27 +2,35 @@ function goBack() {
     window.location.href = '/select_user_patient';
 }
 
-(() => {
-    'use strict'
+(function () {
+    'use strict';
 
-    const forms = document.querySelectorAll('.needs-validation')
+    const form = document.getElementById('complementos-cards');
 
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
+    form.addEventListener('submit', function (event) {
+        // Chama as funções de validação aqui
+        const isValidName = validadeLaboratoryName();
+        const isValidStreet = validadelaboratoryrua();
+        const isValidCnpj = ValidadeLaboratoryCPF();
+        const isValidCep = ValidadeLaboratoryCEP();
+        const isValidPhone = ValidadeLaboratoryTelefonerror();
+        const isValidNumber = validateLaboratoryNumber();
+        const isValidNeighborhood = validateLaboratoryNeighborhood();
+
+        if (!form.checkValidity() || !isValidName || !isValidStreet || !isValidCnpj || !isValidCep || !isValidPhone || !isValidNumber || !isValidNeighborhood) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            // Permitir o envio do formulário se tudo estiver válido
+            form.classList.add('was-validated');
         }
-
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
+    }, false);
+})();
 
 
 function validadeLaboratoryName() {
     var laboratoryname = document.getElementById("LaboratoryName").value;
-    var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras
+    var regex = /^[a-zA-Z\u00C0-\u00FF\s]+$/; // Regex para letras e espaços
     var validadelaboratorynameError = document.getElementById("ValidadeLaboratoryNameError");
 
     if (!regex.test(laboratoryname)) {
@@ -107,7 +115,7 @@ function validateLaboratoryNumber() {
 function validateLaboratoryNeighborhood() {
     var laboratoryneighborhood = document.getElementById("LaboratoryNeighborhood").value;
     var regex = /^[a-zA-Z0-9\s\u00C0-\u017F]+$/; // Regex para letras (incluindo acentuadas), números e espaços
-    var validadelaboratoryneighborhoodError = document.getElementById("ValidadeLaboratoryNeighborhoodError")
+    var validadelaboratoryneighborhoodError = document.getElementById("ValidadeLaboratoryNeighborhoodError");
 
     if (!laboratoryneighborhood || !regex.test(laboratoryneighborhood)) {
         validadelaboratoryneighborhoodError.style.display = "block";

@@ -17,7 +17,6 @@ def edit_user():
         number_phone = request.form["LaboratoryNumberPhone"]
         number_address = request.form["LaboratoryNumberAddress"]
         neighborhood = request.form["LaboratoryNeighborhood"]
-        print(name, street, complement, cnpj, cep, number_phone, number_address, neighborhood)
         register_laboratory_bd(
             name,
             street,
