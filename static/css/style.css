@@ -291,7 +291,11 @@
 }
 
 #titulos-tabela{
-    text-align: center;
+    text-align: left;
+}
+
+.conteudo-ordem-de-servico{
+    text-align: left;
 }
 
 .is-invalid {
