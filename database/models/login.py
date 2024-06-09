@@ -9,6 +9,7 @@ from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
+
 class User(UserMixin):
     def __init__(self, id, name, cpf, cargo, status):
         self.id = id
@@ -40,7 +41,6 @@ def role_required(role):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
             if current_user.is_authenticated:
-                print(f"User is authenticated: {current_user.name}, Cargo: {current_user.cargo}")
                 if current_user.cargo == role:
                     return fn(*args, **kwargs)
                 else:
@@ -48,5 +48,7 @@ def role_required(role):
             else:
                 flash("Você precisa estar logado para acessar esta página.", "error")
             return redirect(url_for("home.home"))
+
         return decorated_view
+
     return wrapper

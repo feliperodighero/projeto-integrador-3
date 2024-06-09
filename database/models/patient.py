@@ -5,6 +5,7 @@ from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
+
 def register_patient_bd(
     ClientName,
     ClientCpf,
@@ -46,6 +47,7 @@ def register_patient_bd(
     finally:
         session.close()
 
+
 def get_patient_by_id(patient_id):
     session = Session()
     try:
@@ -71,6 +73,7 @@ def get_patient_by_id(patient_id):
     finally:
         session.close()
 
+
 def get_patient_by_cpf(patient_cpf):
     session = Session()
     try:
@@ -95,6 +98,7 @@ def get_patient_by_cpf(patient_cpf):
         return None
     finally:
         session.close()
+
 
 def update_patient_bd(
     patient_id,

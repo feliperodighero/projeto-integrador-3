@@ -5,14 +5,15 @@ from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
+
 def register_service_order_bd(
-        client_name,
-        laboratory_name,
-        product_names,
-        user_id,
-        date_register_order,
-        value_order,
-        status_order=1,
+    client_name,
+    laboratory_name,
+    product_names,
+    user_id,
+    date_register_order,
+    value_order,
+    status_order=1,
 ):
     session = Session()
     print(product_names)
@@ -24,7 +25,9 @@ def register_service_order_bd(
         print(client_code)
 
         # Buscar o código do laboratório
-        query = text("""SELECT CD_LAB FROM LABORATORIO WHERE NM_LAB = :laboratory_name""")
+        query = text(
+            """SELECT CD_LAB FROM LABORATORIO WHERE NM_LAB = :laboratory_name"""
+        )
         result = session.execute(query, {"laboratory_name": laboratory_name})
         laboratory_code = result.scalar()
         print(laboratory_code)
@@ -35,14 +38,17 @@ def register_service_order_bd(
             OUTPUT inserted.CD_PED
             VALUES (:laboratory_code, :user_id, :client_code, :status_order, :date_register_order, :vlr_total)
         """)
-        result = session.execute(insert_query, {
-            "laboratory_code": laboratory_code,
-            "user_id": user_id,
-            "client_code": client_code,
-            "status_order": status_order,
-            "date_register_order": date_register_order,
-            "vlr_total": value_order
-        })
+        result = session.execute(
+            insert_query,
+            {
+                "laboratory_code": laboratory_code,
+                "user_id": user_id,
+                "client_code": client_code,
+                "status_order": status_order,
+                "date_register_order": date_register_order,
+                "vlr_total": value_order,
+            },
+        )
         pedido_code = result.scalar()
         print(pedido_code)
 
@@ -52,17 +58,21 @@ def register_service_order_bd(
         # Inserir itens na tabela PEDIDO_IT
         for product_name in product_names:
             # Buscar o código do produto
-            product_code_query = text("""SELECT CD_PROD FROM PRODUTO WHERE NM_PROD = :product_name""")
+            product_code_query = text(
+                """SELECT CD_PROD FROM PRODUTO WHERE NM_PROD = :product_name"""
+            )
             result = session.execute(product_code_query, {"product_name": product_name})
             product_code = result.scalar()
             print(product_code)
 
             # Inserir o item do pedido na tabela PEDIDO_IT
-            insert_item_query = text("""INSERT INTO PEDIDO_IT (CD_PED, CD_PROD) VALUES (:pedido_code, :product_code)""")
-            session.execute(insert_item_query, {
-                "pedido_code": pedido_code,
-                "product_code": product_code
-            })
+            insert_item_query = text(
+                """INSERT INTO PEDIDO_IT (CD_PED, CD_PROD) VALUES (:pedido_code, :product_code)"""
+            )
+            session.execute(
+                insert_item_query,
+                {"pedido_code": pedido_code, "product_code": product_code},
+            )
 
         session.commit()
     except Exception as e:
@@ -71,8 +81,10 @@ def register_service_order_bd(
     finally:
         session.close()
 
+
 # Formatação da moeda
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+locale.setlocale(locale.LC_ALL, "pt_BR.UTF-8")
+
 
 def search_order_bd(order_code, patient_name, order_date):
     session = Session()
@@ -97,7 +109,14 @@ def search_order_bd(order_code, patient_name, order_date):
         result = session.execute(text(query), params)
         orders = result.fetchall()
 
-        orders_list = [{"order_code": row[0], "patient_name": row[1], "order_date": row[2].strftime("%Y-%m-%d")} for row in orders]
+        orders_list = [
+            {
+                "order_code": row[0],
+                "patient_name": row[1],
+                "order_date": row[2].strftime("%Y-%m-%d"),
+            }
+            for row in orders
+        ]
 
         return orders_list
 
@@ -105,6 +124,7 @@ def search_order_bd(order_code, patient_name, order_date):
         print(f"Error: {e}")
     finally:
         session.close()
+
 
 def get_order_details(order_code):
     session = Session()
@@ -156,9 +176,13 @@ def get_order_details(order_code):
             JOIN PRODUTO p ON i.CD_PROD = p.CD_PROD
             WHERE i.CD_PED = :order_code
         """)
-        items_result = session.execute(items_query, {"order_code": order_code}).fetchall()
+        items_result = session.execute(
+            items_query, {"order_code": order_code}
+        ).fetchall()
 
-        order_items = [{"product_code": item[0], "product_name": item[1]} for item in items_result]
+        order_items = [
+            {"product_code": item[0], "product_name": item[1]} for item in items_result
+        ]
         order_details["items"] = order_items
 
         return order_details
@@ -168,6 +192,7 @@ def get_order_details(order_code):
         return None
     finally:
         session.close()
+
 
 def update_order_status(order_code, new_status):
     session = Session()
@@ -184,5 +209,19 @@ def update_order_status(order_code, new_status):
         print(f"Error: {e}")
         session.rollback()
         return False
+    finally:
+        session.close()
+
+
+def search_patients_by_name(query):
+    session = Session()
+    try:
+        query = text("SELECT NM_CLI FROM CLIENTE WHERE NM_CLI LIKE :query")
+        result = session.execute(query, {"query": f"%{query}%"})
+        patient_names = [row[0] for row in result.fetchall()]
+        return patient_names
+    except Exception as e:
+        print(f"Error: {e}")
+        return []
     finally:
         session.close()

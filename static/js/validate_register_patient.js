@@ -1,22 +1,26 @@
 (() => {
-  'use strict'
+  "use strict";
 
-  const forms = document.querySelectorAll('.needs-validation')
+  const forms = document.querySelectorAll(".needs-validation");
 
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
 
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();
 
 function goBack() {
-  window.location.href = '/select_user_patient';
+  window.location.href = "/select_user_patient";
 }
 
 function validateClientname() {
@@ -67,24 +71,55 @@ function validatePhoneNumber() {
   var clienttelefoneError = document.getElementById("ClientTelefoneError");
 
   if (!regex.test(phoneNumber)) {
-    clienttelefoneError.style.display = "block"
+    clienttelefoneError.style.display = "block";
     return false;
   } else {
-    clienttelefoneError.style.display = "none"
+    clienttelefoneError.style.display = "none";
     return true;
   }
 }
 
 function validateBirthDate() {
-  var birthDateInput = document.getElementById("ClientDataNascError");
-  var birthDateValue = birthDateInput.value;
-  var datanascError = document.getElementById("ClientDataNascError");
+  var birthDate = document.getElementById("ClientDateBirth").value;
+  var clientDataNascError = document.getElementById("ClientDataNascError");
 
-  if (!birthDateValue) {
-    datanascError.style.display = "block";
+  if (!birthDate) {
+    clientDataNascError.style.display = "block";
     return false;
   } else {
-    datanascError.style.display = "none";
+    clientDataNascError.style.display = "none";
+    return true;
+  }
+}
+
+function validateForm() {
+  return (
+    validateClientname() &&
+    validateCPF() &&
+    validatePhoneNumber() &&
+    validateBirthDate() &&
+    validateStreet() &&
+    validateHouseNumber() &&
+    validateNeighborhood()
+  );
+}
+
+document.getElementById("complementos-cards").onsubmit = function (event) {
+  if (!validateForm()) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+};
+
+function validateBirthDate() {
+  var birthDate = document.getElementById("ClientDateBirth").value;
+  var clientDataNascError = document.getElementById("ClientDataNascError");
+
+  if (!birthDate) {
+    clientDataNascError.style.display = "block";
+    return false;
+  } else {
+    clientDataNascError.style.display = "none";
     return true;
   }
 }
@@ -96,17 +131,17 @@ function validateStreet() {
 
   if (!regex.test(street)) {
     clientruaError.style.display = "block";
-    return false
+    return false;
   } else {
     clientruaError.style.display = "none";
-    return true
+    return true;
   }
 }
 
 function validateHouseNumber() {
   var houseNumber = document.getElementById("ClientNumberHouse").value;
   var regex = /^[a-zA-Z0-9]+$/; // Regex para números
-  var clientnumeroError = document.getElementById("ClientNumeroError")
+  var clientnumeroError = document.getElementById("ClientNumeroError");
 
   if (!regex.test(houseNumber)) {
     clientnumeroError.style.display = "block";
@@ -120,7 +155,7 @@ function validateHouseNumber() {
 function validateNeighborhood() {
   var neighborhood = document.getElementById("ClientNeighborhood").value;
   var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras, números e espaços
-  var clientbairroError = document.getElementById = "ClientBairroError";
+  var clientbairroError = (document.getElementById = "ClientBairroError");
   if (!regex.test(neighborhood)) {
     clientbairroError.style.display = "block";
     return false;

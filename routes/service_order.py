@@ -1,9 +1,16 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_required, current_user
-from database.models.service_order import register_service_order_bd, search_order_bd, get_order_details, update_order_status
+from database.models.service_order import (
+    register_service_order_bd,
+    search_order_bd,
+    get_order_details,
+    update_order_status,
+    search_patients_by_name,
+)
 
 service_order_route = Blueprint("service_order", __name__)
+
 
 @service_order_route.route("/service_order", methods=["GET", "POST"])
 @login_required
@@ -14,15 +21,29 @@ def service_order():
         items = request.form.getlist("ItemName")
         value_order = request.form.get("ValueOrder")
         date_register = datetime.now()  # Obter todos os itens selecionados
-        print(client_name, laboratory_name, items, current_user.id, date_register, value_order)
+        print(
+            client_name,
+            laboratory_name,
+            items,
+            current_user.id,
+            date_register,
+            value_order,
+        )
 
-        register_service_order_bd(client_name, laboratory_name, items, current_user.id, date_register, value_order)
-
+        register_service_order_bd(
+            client_name,
+            laboratory_name,
+            items,
+            current_user.id,
+            date_register,
+            value_order,
+        )
 
         flash("Ordem de serviço cadastrada com sucesso!", "success")
         return redirect(url_for("service_order.service_order"))
 
     return render_template("service_order.html")
+
 
 @service_order_route.route("/search_orders", methods=["POST"])
 @login_required
@@ -39,7 +60,8 @@ def search_orders():
 
     return jsonify({"orders": orders_list})
 
-@service_order_route.route('/order_details/<int:order_code>', methods=['GET'])
+
+@service_order_route.route("/order_details/<int:order_code>", methods=["GET"])
 @login_required
 def order_details(order_code):
     print(order_code)
@@ -63,3 +85,11 @@ def update_order_status_endpoint():
         return jsonify({"success": True})
     else:
         return jsonify({"success": False}), 500
+
+
+@service_order_route.route("/autocomplete_patients", methods=["GET"])
+@login_required
+def autocomplete_patients():
+    query = request.args.get("query", "")
+    results = search_patients_by_name(query)
+    return jsonify(results)

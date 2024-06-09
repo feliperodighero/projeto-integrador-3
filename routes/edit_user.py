@@ -1,12 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from database.models.user import get_user_by_id, get_user_by_cpf, update_user_bd, delete_user_bd
+from flask_login import login_required
+from database.models.user import (
+    get_user_by_id,
+    get_user_by_cpf,
+    update_user_bd,
+    delete_user_bd,
+)
+from database.models.login import role_required
 
 edit_user_bp = Blueprint("edit_user", __name__, template_folder="templates")
 
+
 @edit_user_bp.route("/edit_user", methods=["GET", "POST"])
+@login_required
+@role_required(1)
 def edit_user_route():
     if request.method == "POST":
-        if 'search' in request.form:
+        if "search" in request.form:
             search_id = request.form.get("SearchID")
             search_cpf = request.form.get("SearchCpfCnpj")
 
@@ -22,7 +32,7 @@ def edit_user_route():
                 flash("Usuário não encontrado", "danger")
                 return render_template("edit_user.html")
 
-        elif 'update' in request.form:
+        elif "update" in request.form:
             user_id = request.form.get("UserId")
             user_data = {
                 "name": request.form.get("UserName"),
@@ -36,7 +46,7 @@ def edit_user_route():
                 "street": request.form.get("UserStreet"),
                 "house_number": request.form.get("UserNumberHouse"),
                 "neighborhood": request.form.get("UserNeighborhood"),
-                "status_usu": request.form.get("UserStatus")
+                "status_usu": request.form.get("UserStatus"),
             }
 
             # Verificar se todas as chaves estão presentes
@@ -63,12 +73,12 @@ def edit_user_route():
                 user_data["house_number"],
                 user_data["neighborhood"],
                 user_data["complement"],
-                user_data["status_usu"]
+                user_data["status_usu"],
             )
             flash("Usuário atualizado com sucesso", "success")
             return redirect(url_for("edit_user.edit_user_route"))
 
-        elif 'delete' in request.form:
+        elif "delete" in request.form:
             user_id = request.form["UserId"]
             delete_user_bd(user_id)
             flash("Usuário excluído com sucesso", "success")

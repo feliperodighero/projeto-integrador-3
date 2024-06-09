@@ -58,7 +58,7 @@
 #titulo-login{
     margin-bottom: 40px;
     font-size: 40px;
-    margin-right: 60px;
+    margin-right: 10px;
 }
 
 #copyright{
@@ -303,4 +303,25 @@
 }
 .is-invalid:focus {
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.alert {
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+
+  .autocomplete-suggestions {
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    position: absolute;
+    z-index: 1000;
+}
+.autocomplete-suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+.autocomplete-suggestion:hover {
+    background-color: #ddd;
 }

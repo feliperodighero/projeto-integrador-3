@@ -120,10 +120,10 @@
           <input
             type="text"
             class="form-control"
-            list="ListaNomePacienteOS"
             id="ListaNomePacienteOS"
+            autocomplete="off"
           />
-          <datalist id="ListaNomePacienteOS"> </datalist>
+          <div id="autocomplete-list" class="autocomplete-suggestions"></div>
         </div>
         <div class="col-md-2 mb-1">
           <label for="InputDateOS" class="form-label">Data</label>
@@ -293,6 +293,8 @@
                       id="ClientName"
                       name="ClientName"
                       placeholder="Escreva..."
+                      required
+                      pattern="[a-zA-Zà-úÀ-Ú ]+"
                     />
                     <datalist id="dataListClienteOS"> </datalist>
 
@@ -303,6 +305,7 @@
                       class="form-select"
                       id="LaboratoryName"
                       name="LaboratoryName"
+                      required
                     >
                       <option selected>Selecione</option>
                       <option value="Odonto Top">Odonto Top</option>
@@ -319,6 +322,7 @@
                         id="proteseUnitaria"
                         name="ItemName"
                         value="Prótese Unitária"
+                        required
                       />
                       <label class="form-check-label" for="proteseUnitaria"
                         >Prótese Unitária</label
@@ -375,6 +379,7 @@
                       id="ValueOrder"
                       name="ValueOrder"
                       placeholder="R$"
+                      required
                     />
                   </div>
                 </div>
@@ -409,5 +414,40 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const input = document.getElementById("ListaNomePacienteOS");
+        const autocompleteList = document.getElementById("autocomplete-list");
+
+        input.addEventListener("input", () => {
+          const query = input.value;
+          if (query.length < 2) {
+            autocompleteList.innerHTML = "";
+            return;
+          }
+          fetch(`/autocomplete_patients?query=${query}`)
+            .then((response) => response.json())
+            .then((data) => {
+              autocompleteList.innerHTML = "";
+              data.forEach((item) => {
+                const suggestion = document.createElement("div");
+                suggestion.classList.add("autocomplete-suggestion");
+                suggestion.textContent = item;
+                suggestion.addEventListener("click", () => {
+                  input.value = item;
+                  autocompleteList.innerHTML = "";
+                });
+                autocompleteList.appendChild(suggestion);
+              });
+            });
+        });
+
+        document.addEventListener("click", (e) => {
+          if (e.target !== input) {
+            autocompleteList.innerHTML = "";
+          }
+        });
+      });
+    </script>
   </body>
 </html>
