@@ -26,7 +26,7 @@ def register_user_bd(
     try:
         senha_hash = generate_password_hash(senha)
         query = text(
-            "INSERT INTO USUARIO (NM_USU, SENHA, CRM, CPF, CD_CARGO, STATUS_USU, TELEFONE, BAIRRO, RUA, NUMERO_CASA, COMPLEMENTO, DT_NASC, DT_CAD) VALUES (:NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :DT_CAD) "
+            "INSERT INTO USUARIO (NM_USU, SENHA, CRM, CPF, CD_CARGO, STATUS_USU, TELEFONE, BAIRRO, RUA, NUMERO_CASA, COMPLEMENTO, DT_NASC, DT_CAD) VALUES (:NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :DT_CAD)"
         )
         session.execute(
             query,
@@ -47,11 +47,13 @@ def register_user_bd(
             },
         )
         session.commit()
-    except:
+    except Exception as e:
         session.rollback()
+        print(f"Error: {e}")
         raise
     finally:
         session.close()
+
 
 def get_user_by_id(user_id):
     session = Session()
@@ -79,6 +81,7 @@ def get_user_by_id(user_id):
     finally:
         session.close()
 
+
 def get_user_by_cpf(cpf):
     session = Session()
     try:
@@ -105,8 +108,21 @@ def get_user_by_cpf(cpf):
     finally:
         session.close()
 
+
 def update_user_bd(
-    user_id, nome, senha, cpf, telefone, data_nascimento, crm, cargo, rua, numero_casa, bairro, complemento, status_usu
+    user_id,
+    nome,
+    senha,
+    cpf,
+    telefone,
+    data_nascimento,
+    crm,
+    cargo,
+    rua,
+    numero_casa,
+    bairro,
+    complemento,
+    status_usu,
 ):
     if status_usu == "Ativo":
         status_usu = True
@@ -135,7 +151,7 @@ def update_user_bd(
                 "BAIRRO": bairro,
                 "COMPLEMENTO": complemento,
                 "STATUS_USU": status_usu,
-                "ID": user_id
+                "ID": user_id,
             },
         )
         session.commit()
@@ -155,5 +171,32 @@ def delete_user_bd(user_id):
     except:
         session.rollback()
         raise
+    finally:
+        session.close()
+
+
+def get_user_by_crm(crm):
+    session = Session()
+    try:
+        query = text("SELECT * FROM USUARIO WHERE CRM = :CRM")
+        result = session.execute(query, {"CRM": crm}).fetchone()
+        if result:
+            return {
+                "id": result[0],
+                "name": result[1],
+                "password": result[2],
+                "crm": result[3],
+                "cpf": result[4],
+                "code_carg": result[5],
+                "status_usu": result[6],
+                "phone": result[7],
+                "neighborhood": result[8],
+                "street": result[9],
+                "house_number": result[10],
+                "complement": result[11],
+                "birth_date": result[12],
+                "cadastro_date": result[13],
+            }
+        return None
     finally:
         session.close()

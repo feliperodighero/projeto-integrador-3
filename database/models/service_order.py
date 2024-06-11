@@ -213,15 +213,43 @@ def update_order_status(order_code, new_status):
         session.close()
 
 
-def search_patients_by_name(query):
+def search_patients_by_name(name):
     session = Session()
     try:
-        query = text("SELECT NM_CLI FROM CLIENTE WHERE NM_CLI LIKE :query")
-        result = session.execute(query, {"query": f"%{query}%"})
-        patient_names = [row[0] for row in result.fetchall()]
+        query = text("""
+            SELECT NM_CLI
+            FROM CLIENTE
+            WHERE NM_CLI LIKE :name
+            ORDER BY NM_CLI
+        """)
+        results = session.execute(query, {"name": f"%{name}%"}).fetchall()
+        patient_names = [row[0] for row in results]
         return patient_names
     except Exception as e:
         print(f"Error: {e}")
         return []
+    finally:
+        session.close()
+
+
+def get_patient_details_by_name(patient_name):
+    session = Session()
+    try:
+        query = text("""
+            SELECT NM_CLI, CPF, DT_NASC
+            FROM CLIENTE
+            WHERE NM_CLI = :patient_name
+        """)
+        result = session.execute(query, {"patient_name": patient_name}).fetchone()
+        if result:
+            return {
+                "name": result[0],
+                "cpf": result[1],
+                "dob": result[2].strftime("%Y-%m-%d") if result[2] else None,
+            }
+        return None
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
     finally:
         session.close()

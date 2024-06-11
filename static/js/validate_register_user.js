@@ -1,22 +1,26 @@
 (() => {
-  'use strict'
+  "use strict";
 
-  const forms = document.querySelectorAll('.needs-validation')
+  const forms = document.querySelectorAll(".needs-validation");
 
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
 
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+})();
 
 function goBack() {
-  window.location.href = '/select_user_patient';
+  window.location.href = "/select_user_patient";
 }
 
 function validateUsername() {
@@ -105,11 +109,21 @@ function validateBirthDate() {
 
 function validateCRM() {
   var crm = document.getElementById("UserCrm").value;
-  var regex = /^\d{6}$/; // Regex para exatamente 6 números
+  var cargo = document.getElementById("inlineFormCustomSelect").value;
   var crmError = document.getElementById("CRMError");
+
+  // Verifica se o cargo é Secretário(a) e permite "N/A" para o CRM
+  if (cargo == "2" && crm === "N/A") {
+    crmError.style.display = "none";
+    return true;
+  }
+
+  // Regex para exatamente 6 números
+  var regex = /^\d{6}$/;
 
   if (!regex.test(crm)) {
     crmError.style.display = "block";
+    return false;
   } else {
     crmError.style.display = "none";
     return true;
@@ -134,7 +148,7 @@ function validateStreet() {
   var regex = /^[a-zA-Z0-9\s]+$/; // Regex para letras e espaços
   var streetError = document.getElementById("StreetError");
 
-  if (street === '' || !regex.test(street)) {
+  if (street === "" || !regex.test(street)) {
     streetError.style.display = "block";
     return false;
   } else {
@@ -152,7 +166,7 @@ function validateHouseNumber() {
     numberError.style.display = "block";
     return false;
   } else {
-    numberError, style.display = "none";
+    numberError, (style.display = "none");
     return true;
   }
 }
@@ -160,7 +174,7 @@ function validateHouseNumber() {
 function validateNeighborhood() {
   var neighborhood = document.getElementById("UserNeighborhood").value;
   var regex = /^[a-zA-Z0-9\s\u00C0-\u017F]+$/; // Regex para letras (incluindo acentuadas), números e espaços
-  var neighborhoodError = document.getElementById("NeighborhoodError")
+  var neighborhoodError = document.getElementById("NeighborhoodError");
 
   if (!neighborhood || !regex.test(neighborhood)) {
     neighborhoodError.style.display = "block";

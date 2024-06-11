@@ -7,6 +7,7 @@ from database.models.service_order import (
     get_order_details,
     update_order_status,
     search_patients_by_name,
+    get_patient_details_by_name,
 )
 
 service_order_route = Blueprint("service_order", __name__)
@@ -91,5 +92,26 @@ def update_order_status_endpoint():
 @login_required
 def autocomplete_patients():
     query = request.args.get("query", "")
-    results = search_patients_by_name(query)
-    return jsonify(results)
+    if query:
+        results = search_patients_by_name(query)
+        return jsonify(results)
+    return jsonify([])
+
+
+@service_order_route.route("/patient_details", methods=["GET"])
+@login_required
+def patient_details():
+    patient_name = request.args.get("name", "")
+    if patient_name:
+        # Assumindo que você tem uma função para buscar detalhes do paciente por nome
+        patient = get_patient_details_by_name(patient_name)
+        if patient:
+            return jsonify(
+                {
+                    "success": True,
+                    "name": patient["name"],
+                    "cpf": patient["cpf"],
+                    "dob": patient["dob"],
+                }
+            )
+    return jsonify({"success": False})
