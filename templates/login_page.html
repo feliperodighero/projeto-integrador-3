@@ -106,12 +106,18 @@
     ></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        var errorModal = new bootstrap.Modal(
-          document.getElementById("errorModal")
-        );
-        if (document.getElementById("errorModal")) {
-          errorModal.show();
-        }
+        {% if 'post_made' in session %}
+          var errorModal = new bootstrap.Modal(
+            document.getElementById("errorModal")
+          );
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              errorModal.show();
+            {% endif %}
+          {% endwith %}
+          // Limpar a variável da sessão
+          session.pop('post_made', None)
+        {% endif %}
       });
     </script>
   </body>
