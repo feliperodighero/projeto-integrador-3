@@ -23,7 +23,7 @@ def login():
                 )
                 return redirect(url_for("login_user.login"))
         else:
-            flash("Nome de usuário ou senha incorretos.", "error")
+            flash("Código ou senha incorretos.", "error")
             return redirect(url_for("login_user.login"))
     return render_template("login_page.html")
 
