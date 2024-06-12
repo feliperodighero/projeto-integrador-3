@@ -33,13 +33,13 @@
                 data.forEach((item) => {
                   const suggestion = document.createElement("div");
                   suggestion.classList.add("autocomplete-suggestion");
-                  suggestion.textContent = item.name || item; // Ajustar conforme o retorno da API
+                  suggestion.textContent = item.name; // Ajustado para refletir a estrutura do retorno da API
                   suggestion.addEventListener("click", () => {
-                    input.value = item.name || item; // Ajustar conforme o retorno da API
+                    input.value = item.name; // Ajustado para refletir a estrutura do retorno da API
                     autocompleteList.innerHTML = "";
 
                     if (detailsCallback) {
-                      detailsCallback(item);
+                      detailsCallback(item); // Passa o objeto inteiro para o callback
                     }
                   });
                   autocompleteList.appendChild(suggestion);
@@ -54,21 +54,50 @@
           });
         };
 
-        setupAutocomplete("ListaNomePacienteOS", "autocomplete-list");
+        setupAutocomplete(
+          "ListaNomePacienteOS",
+          "autocomplete-list",
+          (item) => {
+            const patientID = item.id;
+            if (patientID) {
+              fetch(`/patient_details?id=${encodeURIComponent(patientID)}`) // Correção aqui
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.success) {
+                    document.getElementById(
+                      "patient-details-name"
+                    ).textContent = data.name;
+                    document.getElementById("patient-details-cpf").textContent =
+                      data.cpf;
+                    document.getElementById("patient-details-dob").textContent =
+                      data.dob;
+                    $("#patientDetailsModal").modal("show");
+                  }
+                });
+            } else {
+              console.error("ID do paciente não encontrado");
+            }
+          }
+        );
         setupAutocomplete("ClientName", "autocomplete-list2", (item) => {
-          fetch(`/patient_details?name=${item.name}`)
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.success) {
-                document.getElementById("patient-details-name").textContent =
-                  data.name;
-                document.getElementById("patient-details-cpf").textContent =
-                  data.cpf;
-                document.getElementById("patient-details-dob").textContent =
-                  data.dob;
-                $("#patientDetailsModal").modal("show");
-              }
-            });
+          const patientID = item.id;
+          if (patientID) {
+            fetch(`/patient_details?id=${encodeURIComponent(patientID)}`) // Correção aqui
+              .then((response) => response.json())
+              .then((data) => {
+                if (data.success) {
+                  document.getElementById("patient-details-name").textContent =
+                    data.name;
+                  document.getElementById("patient-details-cpf").textContent =
+                    data.cpf;
+                  document.getElementById("patient-details-dob").textContent =
+                    data.dob;
+                  $("#patientDetailsModal").modal("show");
+                }
+              });
+          } else {
+            console.error("ID do paciente não encontrado");
+          }
         });
       });
     </script>

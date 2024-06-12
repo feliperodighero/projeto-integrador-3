@@ -217,14 +217,15 @@ def search_patients_by_name(name):
     session = Session()
     try:
         query = text("""
-            SELECT NM_CLI
+            SELECT CD_CLI, NM_CLI
             FROM CLIENTE
             WHERE NM_CLI LIKE :name
             ORDER BY NM_CLI
         """)
         results = session.execute(query, {"name": f"%{name}%"}).fetchall()
-        patient_names = [row[0] for row in results]
-        return patient_names
+        print(results)
+        patients = [{"id": row[0], "name": row[1]} for row in results]
+        return patients
     except Exception as e:
         print(f"Error: {e}")
         return []
@@ -232,15 +233,15 @@ def search_patients_by_name(name):
         session.close()
 
 
-def get_patient_details_by_name(patient_name):
+def get_patient_details_by_id(patient_id):
     session = Session()
     try:
         query = text("""
             SELECT NM_CLI, CPF, DT_NASC
             FROM CLIENTE
-            WHERE NM_CLI = :patient_name
+            WHERE CD_CLI = :patient_id
         """)
-        result = session.execute(query, {"patient_name": patient_name}).fetchone()
+        result = session.execute(query, {"patient_id": patient_id}).fetchone()
         if result:
             return {
                 "name": result[0],

@@ -20,6 +20,7 @@ login_manager = LoginManager()
 
 Session = sessionmaker(bind=engine)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     session = Session()
@@ -33,9 +34,9 @@ def load_user(user_id):
 
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta_aqui'
+app.secret_key = "sua_chave_secreta_aqui"
 login_manager.init_app(app)
-login_manager.login_view = 'login_user.login'
+login_manager.login_view = "login_user.login"
 app.register_blueprint(home_route)
 app.register_blueprint(register_user_bp)
 app.register_blueprint(login_user)
