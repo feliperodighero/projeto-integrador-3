@@ -5,6 +5,7 @@ from database.config import engine
 
 Session = sessionmaker(bind=engine)
 
+
 def register_laboratory_bd(
     LaboratoryName,
     LaboratoryStreet,
@@ -14,29 +15,40 @@ def register_laboratory_bd(
     LaboratoryNumberPhone,
     LaboratoryNumberAddress,
     LaboratoryNeighborhood,
-    LaboratoryStatus=True):
-
+    LaboratoryStatus=True,
+):
     session = Session()
     try:
+        # Verifique se o laboratório já existe
+        if check_laboratory_exists(LaboratoryCnpj):
+            print("Laboratório com esse CNPJ já existe.")
+            return False  # Ou você pode levantar uma exceção ou retornar uma mensagem de erro
+
         query = text("""INSERT INTO LABORATORIO (NM_LAB, CNPJ, TELEFONE, STATUS_LAB, BAIRRO, RUA, NUMERO, CEP, COMPLEMENTO)
                         VALUES (:NM_LAB, :CNPJ, :TELEFONE, :STATUS_LAB, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO)""")
-        session.execute(query, {
-            "NM_LAB": LaboratoryName,
-            "CNPJ": LaboratoryCnpj,
-            "TELEFONE": LaboratoryNumberPhone,
-            "STATUS_LAB": LaboratoryStatus,
-            "BAIRRO": LaboratoryNeighborhood,
-            "RUA": LaboratoryStreet,
-            "NUMERO": LaboratoryNumberAddress,
-            "CEP": LaboratoryCep,
-            "COMPLEMENTO": LaboratoryComplement
-        })
+        session.execute(
+            query,
+            {
+                "NM_LAB": LaboratoryName,
+                "CNPJ": LaboratoryCnpj,
+                "TELEFONE": LaboratoryNumberPhone,
+                "STATUS_LAB": LaboratoryStatus,
+                "BAIRRO": LaboratoryNeighborhood,
+                "RUA": LaboratoryStreet,
+                "NUMERO": LaboratoryNumberAddress,
+                "CEP": LaboratoryCep,
+                "COMPLEMENTO": LaboratoryComplement,
+            },
+        )
         session.commit()
+        return True
     except Exception as e:
         session.rollback()
-        print(f"Erro ao registrar laboratorio: {e}")
+        print(f"Erro ao registrar laboratório: {e}")
+        return False
     finally:
         session.close()
+
 
 def get_laboratory_by_id_bd(laboratory_id):
     session = Session()
@@ -45,7 +57,7 @@ def get_laboratory_by_id_bd(laboratory_id):
         result = session.execute(query, {"ID": laboratory_id}).fetchone()
         print(result)
         if result:
-            return{
+            return {
                 "id": result[0],
                 "name": result[1],
                 "cnpj": result[2],
@@ -61,6 +73,7 @@ def get_laboratory_by_id_bd(laboratory_id):
         print(f"Erro ao buscar laboratorio: {e}")
     finally:
         session.close()
+
 
 def get_laboratory_by_cnpj_bd(laboratory_cnpj):
     session = Session()
@@ -69,7 +82,7 @@ def get_laboratory_by_cnpj_bd(laboratory_cnpj):
         result = session.execute(query, {"CNPJ": laboratory_cnpj}).fetchone()
         print(result)
         if result:
-            return{
+            return {
                 "id": result[0],
                 "name": result[1],
                 "cnpj": result[2],
@@ -86,18 +99,19 @@ def get_laboratory_by_cnpj_bd(laboratory_cnpj):
     finally:
         session.close()
 
-def update_laboratory_bd(
-        laboratory_id,
-        laboratory_name,
-        laboratory_cnpj,
-        laboratory_number_phone,
-        laaboratory_neighborhood,
-        laboratory_street,
-        laboratory_number_address,
-        laboratory_cep,
-        laboratory_complement,
-        LaboratoryStatus=True):
 
+def update_laboratory_bd(
+    laboratory_id,
+    laboratory_name,
+    laboratory_cnpj,
+    laboratory_number_phone,
+    laaboratory_neighborhood,
+    laboratory_street,
+    laboratory_number_address,
+    laboratory_cep,
+    laboratory_complement,
+    LaboratoryStatus=True,
+):
     session = Session()
     try:
         query = text("""UPDATE LABORATORIO
@@ -111,24 +125,28 @@ def update_laboratory_bd(
                             CEP = :CEP,
                             COMPLEMENTO = :COMPLEMENTO
                         WHERE CD_LAB = :ID""")
-        session.execute(query, {
-            "ID": laboratory_id,
-            "NM_LAB": laboratory_name,
-            "CNPJ": laboratory_cnpj,
-            "TELEFONE": laboratory_number_phone,
-            "STATUS_LAB": LaboratoryStatus,
-            "BAIRRO": laaboratory_neighborhood,
-            "RUA": laboratory_street,
-            "NUMERO": laboratory_number_address,
-            "CEP": laboratory_cep,
-            "COMPLEMENTO": laboratory_complement
-        })
+        session.execute(
+            query,
+            {
+                "ID": laboratory_id,
+                "NM_LAB": laboratory_name,
+                "CNPJ": laboratory_cnpj,
+                "TELEFONE": laboratory_number_phone,
+                "STATUS_LAB": LaboratoryStatus,
+                "BAIRRO": laaboratory_neighborhood,
+                "RUA": laboratory_street,
+                "NUMERO": laboratory_number_address,
+                "CEP": laboratory_cep,
+                "COMPLEMENTO": laboratory_complement,
+            },
+        )
         session.commit()
     except Exception as e:
         session.rollback()
         print(f"Erro ao atualizar laboratorio: {e}")
     finally:
         session.close()
+
 
 def delete_laboratory_bd(laboratory_id):
     session = Session()
@@ -139,5 +157,18 @@ def delete_laboratory_bd(laboratory_id):
     except Exception as e:
         session.rollback()
         print(f"Erro ao deletar laboratorio: {e}")
+    finally:
+        session.close()
+
+
+def check_laboratory_exists(cnpj):
+    session = Session()
+    try:
+        query = text("SELECT COUNT(1) FROM LABORATORIO WHERE CNPJ = :CNPJ")
+        result = session.execute(query, {"CNPJ": cnpj}).scalar()
+        return result > 0
+    except Exception as e:
+        print(f"Erro ao verificar se laboratório existe: {e}")
+        return False
     finally:
         session.close()

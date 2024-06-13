@@ -164,3 +164,32 @@ function validateNeighborhood() {
     return true;
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const cpfField = document.getElementById("ClientCpf");
+  const cpfExistsError = document.getElementById("ClientCPFExistsError");
+  const form = document.getElementById("complementos-cards");
+
+  cpfField.addEventListener("blur", function () {
+    const cpf = cpfField.value;
+    if (cpf) {
+      fetch(`/check_cpf_exists?cpf=${cpf}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.exists) {
+            cpfExistsError.style.display = "block";
+          } else {
+            cpfExistsError.style.display = "none";
+          }
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  });
+
+  form.addEventListener("submit", function (event) {
+    if (cpfExistsError.style.display === "block") {
+      event.preventDefault();
+      alert("Corrija os erros no formulário antes de enviar.");
+    }
+  });
+});

@@ -5,6 +5,7 @@ from database.models.laboratory import register_laboratory_bd
 
 register_laboratory_bp = Blueprint("register_laboratory", __name__)
 
+
 @register_laboratory_bp.route("/register_laboratory", methods=["GET", "POST"])
 @login_required
 def edit_user():
@@ -17,7 +18,8 @@ def edit_user():
         number_phone = request.form["LaboratoryNumberPhone"]
         number_address = request.form["LaboratoryNumberAddress"]
         neighborhood = request.form["LaboratoryNeighborhood"]
-        register_laboratory_bd(
+
+        if register_laboratory_bd(
             name,
             street,
             complement,
@@ -26,6 +28,12 @@ def edit_user():
             number_phone,
             number_address,
             neighborhood,
-        )
-        return redirect(url_for("register_laboratory.edit_user"))
+        ):
+            return redirect(url_for("register_laboratory.edit_user"))
+        else:
+            # Exibir uma mensagem de erro para o usuário, indicando que o CNPJ já existe
+            return render_template(
+                "register_laboratory.html", error="Laboratório com esse CNPJ já existe."
+            )
+
     return render_template("register_laboratory.html")
