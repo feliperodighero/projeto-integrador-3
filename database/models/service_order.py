@@ -236,11 +236,7 @@ def search_patients_by_name(name):
 def get_patient_details_by_id(patient_id):
     session = Session()
     try:
-        query = text("""
-            SELECT NM_CLI, CPF, DT_NASC
-            FROM CLIENTE
-            WHERE CD_CLI = :patient_id
-        """)
+        query = text("""SELECT * FROM [dbo].[GetPatientDetailsById](:patient_id)""")
         result = session.execute(query, {"patient_id": patient_id}).fetchone()
         if result:
             return {

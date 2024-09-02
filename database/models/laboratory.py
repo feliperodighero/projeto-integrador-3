@@ -24,8 +24,9 @@ def register_laboratory_bd(
             print("Laboratório com esse CNPJ já existe.")
             return False  # Ou você pode levantar uma exceção ou retornar uma mensagem de erro
 
-        query = text("""INSERT INTO LABORATORIO (NM_LAB, CNPJ, TELEFONE, STATUS_LAB, BAIRRO, RUA, NUMERO, CEP, COMPLEMENTO)
-                        VALUES (:NM_LAB, :CNPJ, :TELEFONE, :STATUS_LAB, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO)""")
+        query = text(
+            """EXEC InsertLaboratorio :NM_LAB, :CNPJ, :TELEFONE, :STATUS_LAB, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO"""
+        )
         session.execute(
             query,
             {
@@ -114,17 +115,9 @@ def update_laboratory_bd(
 ):
     session = Session()
     try:
-        query = text("""UPDATE LABORATORIO
-                        SET NM_LAB = :NM_LAB,
-                            CNPJ = :CNPJ,
-                            TELEFONE = :TELEFONE,
-                            STATUS_LAB = :STATUS_LAB,
-                            BAIRRO = :BAIRRO,
-                            RUA = :RUA,
-                            NUMERO = :NUMERO,
-                            CEP = :CEP,
-                            COMPLEMENTO = :COMPLEMENTO
-                        WHERE CD_LAB = :ID""")
+        query = text(
+            """EXEC UpdateLaboratorio :ID, :NM_LAB, :CNPJ, :TELEFONE, :STATUS_LAB, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO"""
+        )
         session.execute(
             query,
             {

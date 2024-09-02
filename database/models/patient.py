@@ -22,7 +22,7 @@ def register_patient_bd(
     session = Session()
     try:
         query = text(
-            "INSERT INTO CLIENTE (NM_CLI, CPF, STATUS_CLI, TELEFONE, BAIRRO, RUA, NUMERO, CEP, COMPLEMENTO, DT_NASC,DT_CAD) VALUES (:NM_CLI, :CPF, :STATUS_CLI, :TELEFONE, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO, :DT_NASC, :DT_CAD)"
+            "EXEC InsertPatient :NM_CLI, :CPF, :STATUS_CLI, :TELEFONE, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO, :DT_NASC, :DT_CAD"
         )
         session.execute(
             query,
@@ -116,7 +116,7 @@ def update_patient_bd(
     session = Session()
     try:
         query = text(
-            "UPDATE CLIENTE SET NM_CLI = :NM_CLI, CPF = :CPF, STATUS_CLI = :STATUS_CLI, TELEFONE = :TELEFONE, BAIRRO = :BAIRRO, RUA = :RUA, NUMERO = :NUMERO, CEP = :CEP, COMPLEMENTO = :COMPLEMENTO, DT_NASC = :DT_NASC WHERE CD_CLI = :ID"
+            "EXEC UpdatePatient :NM_CLI, :CPF, :STATUS_CLI, :TELEFONE, :BAIRRO, :RUA, :NUMERO, :CEP, :COMPLEMENTO, :DT_NASC, :ID"
         )
         session.execute(
             query,
