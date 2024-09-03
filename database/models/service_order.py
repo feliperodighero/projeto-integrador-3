@@ -33,20 +33,18 @@ def register_service_order_bd(
         print(laboratory_code)
 
         # Inserir o pedido na tabela PEDIDO e recuperar o código inserido
-        insert_query = text("""
-            INSERT INTO PEDIDO (CD_LAB, CD_USU, CD_CLI, STATUS_PED, DT_PED, VLR_TOTAL)
-            OUTPUT inserted.CD_PED
-            VALUES (:laboratory_code, :user_id, :client_code, :status_order, :date_register_order, :vlr_total)
-        """)
+        insert_query = text(
+            "EXEC P_INSERT_PEDIDO :CD_LAB, :CD_USU, :CD_CLI, :STATUS_PED, :DT_PED, :VLR_TOTAL"
+        )
         result = session.execute(
             insert_query,
             {
-                "laboratory_code": laboratory_code,
-                "user_id": user_id,
-                "client_code": client_code,
-                "status_order": status_order,
-                "date_register_order": date_register_order,
-                "vlr_total": value_order,
+                "CD_LAB": laboratory_code,
+                "CD_USU": user_id,
+                "CD_CLI": client_code,
+                "STATUS_PED": status_order,
+                "DT_PED": date_register_order,
+                "VLR_TOTAL": value_order,
             },
         )
         pedido_code = result.scalar()
@@ -129,29 +127,7 @@ def search_order_bd(order_code, patient_name, order_date):
 def get_order_details(order_code):
     session = Session()
     try:
-        query = text("""
-            SELECT
-                p.CD_PED,
-                p.CD_LAB,
-                l.NM_LAB,
-                p.CD_USU,
-                u.NM_USU,
-                p.CD_CLI,
-                c.NM_CLI,
-                p.STATUS_PED,
-                p.DT_PED,
-                p.VLR_TOTAL
-            FROM
-                PEDIDO p
-            JOIN
-                LABORATORIO l ON p.CD_LAB = l.CD_LAB
-            JOIN
-                USUARIO u ON p.CD_USU = u.CD_USU
-            JOIN
-                CLIENTE c ON p.CD_CLI = c.CD_CLI
-            WHERE
-                p.CD_PED = :order_code
-        """)
+        query = text("EXEC P_ORDEM_DETALHES :order_code")
         result = session.execute(query, {"order_code": order_code}).fetchone()
 
         if not result:
@@ -197,11 +173,7 @@ def get_order_details(order_code):
 def update_order_status(order_code, new_status):
     session = Session()
     try:
-        query = text("""
-            UPDATE PEDIDO
-            SET STATUS_PED = :new_status
-            WHERE CD_PED = :order_code
-        """)
+        query = text("EXEC P_UPDATE_STS_PEDIDO :order_code, :new_status")
         session.execute(query, {"new_status": new_status, "order_code": order_code})
         session.commit()
         return True
