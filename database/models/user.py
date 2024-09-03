@@ -26,7 +26,7 @@ def register_user_bd(
     try:
         senha_hash = generate_password_hash(senha)
         query = text(
-            "INSERT INTO USUARIO (NM_USU, SENHA, CRM, CPF, CD_CARGO, STATUS_USU, TELEFONE, BAIRRO, RUA, NUMERO_CASA, COMPLEMENTO, DT_NASC, DT_CAD) VALUES (:NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :DT_CAD)"
+            "EXEC P_INSERT_USUARIO :NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :DT_CAD"
         )
         session.execute(
             query,
@@ -132,9 +132,7 @@ def update_user_bd(
     try:
         senha_hash = generate_password_hash(senha)
         query = text(
-            "UPDATE USUARIO SET NM_USU = :NM_USU, SENHA = :SENHA, CRM = :CRM, CPF = :CPF, "
-            "CD_CARGO = :CD_CARGO, STATUS_USU = :STATUS_USU, TELEFONE = :TELEFONE, BAIRRO = :BAIRRO, RUA = :RUA, "
-            "NUMERO_CASA = :NUMERO_CASA, COMPLEMENTO = :COMPLEMENTO, DT_NASC = :DT_NASC WHERE CD_USU = :ID"
+            "EXEC P_UPDATE_USUARIO :NM_USU, :SENHA, :CRM, :CPF, :CD_CARGO, :STATUS_USU, :TELEFONE, :BAIRRO, :RUA, :NUMERO_CASA, :COMPLEMENTO, :DT_NASC, :CD_USU"
         )
         session.execute(
             query,
@@ -151,7 +149,7 @@ def update_user_bd(
                 "BAIRRO": bairro,
                 "COMPLEMENTO": complemento,
                 "STATUS_USU": status_usu,
-                "ID": user_id,
+                "CD_USU": user_id,
             },
         )
         session.commit()
