@@ -25,7 +25,7 @@ function goBack() {
 
 function validateUsername() {
   var username = document.getElementById("UserName").value;
-  var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras
+  var regex = /^[a-zA-Z\u00C0-\u00FF\s]+$/; // Regex para letras
   var usernameError = document.getElementById("usernameError");
 
   if (!regex.test(username)) {

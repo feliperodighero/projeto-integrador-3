@@ -25,7 +25,7 @@ function goBack() {
 
 function validateClientname() {
   var clientname = document.getElementById("ClientName").value;
-  var regex = /^[a-zA-Z\u00C0-\u00FF]+$/; // Regex para letras com e sem acentos
+  var regex = /^[a-zA-Z\u00C0-\u00FF\s]+$/; // Regex para letras com e sem acentos
   var clientError = document.getElementById("ClientError");
 
   if (!regex.test(clientname)) {
